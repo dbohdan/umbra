@@ -1,0 +1,8 @@
+#!/bin/bash
+version=`grep VERSION= Global.py|sed -e 's/.*="\(.*\)"/\1/' -e 's/\.//g'`
+nosave
+rm -f *.pyo *.pyc um.log* ../umbra${version}.zip ../umsrc${version}.zip
+
+cd ..
+zip -r9 umbra${version}.zip umbra
+echo Archived umbra${version}.zip

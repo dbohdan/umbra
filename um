@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ -f um.log ]; then
+    mv -f um.log um.log1
+fi
+clean
+echo building...
+python -OO build.py
+echo starting...
+python -iOO UmbraTk.pyo $* 2>&1 |tee um.log

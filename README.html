@@ -1,0 +1,531 @@
+<html><head><title>Umbra README.html</title></head>
+<body>
+<h1 align="center">Umbra</h1>
+<h4 align="center">(c) Copyright 2001 by Mark Hughes &lt;<a href="mailto:kamikaze@kuoi.asui.uidaho.edu">kamikaze@kuoi.asui.uidaho.edu</a>&gt;</h4>
+<h4 align="center">All Rights Reserved</h4>
+
+<ul>
+<li><a href="#install">Installation and Usage</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#whatsnew">What's New</a>: Version 0.11, released 2002Sep16</li>
+<li><a href="#future">The Future, Coming Sooner Than You Think!</a></li>
+</ul>
+
+<hr />
+<h2><a name="install">Installation and Usage</a></h2>
+
+<ol>
+<li>Unzip umbra##.zip anywhere on your hard drive, which will create an
+"umbra" directory.  </li>
+
+<li>Download Python 2.1 from &lt;<a href="http://www.python.org/">http://www.python.org/</a>&gt;
+</li>
+
+<li>You can now run it:
+    <dl>
+    <dt><b>Unix:</b></dt>
+        <dd>cd umbra; chmod 700 ./umbra.sh; ./umbra.sh
+	</dd>
+    <dt><b>OS/2:</b></dt>
+        <dd>open the "umbra" folder and double-click on umbra.cmd
+	</dd>
+    <dt><b>Windows:</b></dt>
+        <dd>open the "umbra" folder and double-click on umbra.bat
+	</dd>
+
+    <dt>These are all equivalent to `python -O UmbraTk.pyo`.<dt>
+
+    <dt><b>Mac users:</b></dt>
+        <dd>Please tell me if you're running it on a Mac, I'd like to hear
+	about your experience of it.  I don't have one handy to test it on.
+	</dd>
+    </dl>
+</li>
+
+<li>Send me email at
+    &lt;<a href="mailto:kamikaze@kuoi.asui.uidaho.edu">kamikaze@kuoi.asui.uidaho.edu</a>&gt;,
+    letting me know that you played and what you thought of it!  </li>
+
+<li>Check back at 
+&lt;<a href="http://kuoi.asui.uidaho.edu/~kamikaze/Umbra/">http://kuoi.asui.uidaho.edu/~kamikaze/Umbra/</a>&gt;
+    every week for new versions and news.  </li>
+
+</ol>
+
+<hr />
+<h2><a name="options">Options</a></h2>
+
+<p>You can use the following options on the command line:</p>
+<pre>
+umbra.sh/bat/cmd &lt;OPTIONS&gt;
+</pre>
+
+<dl>
+<dt><b>-hack</b></dt>
+    <dd>If specified when you start a new game, you will start at the door of
+    a temple, one sector <b>west</b> of the usual starting town (so head
+    towards the sunrise to get back to town), with some minimal equipment
+    instead of cash.
+    </dd>
+
+<dt><b>-viewdist {distance}</b></dt>
+    <dd>Changes the number of grid squares (2m*2m) ahead and to the sides that
+    you can see.  The default of 8 is just barely acceptable on my own
+    machine, so you might want to lower it if you have a slow video card, or
+    increase it if you have a fast one.  (The default used to be 16, but the
+    lighting slowed things enough that a lower default made sense).
+    </dd>
+
+<dt><b>-nolight</b></dt>
+    <dd>Disables lighting, which requires some heavy processing at present; as
+    soon as I can optimize the lighting code, this option will be going away.
+    </dd>
+
+<dt><b>-nolightlos</b></dt>
+    <dd>A less drastic solution, this disables line-of-sight checks for
+    lighting, so that light sources work through walls, doors, etc.  This
+    option will also go away when the lighting code is sped up.
+    </dd>
+
+<dt><b>-timing</b></dt>
+    <dd>A debugging tool, if you're not sure why it's so slow on your machine,
+    this shows exactly what's taking up all the time.  "turn" includes
+    updating other creatures and your map.  "redraw" includes, among other
+    things, working out the lighting.  "showMap" is the actual drawing of
+    everything, "showSky" is just the sky-based part of showMap, and "update"
+    is the redrawing of the player status bar.  If your showMap is the largest
+    part, your video card is not up to snuff.  If your turn or redraw is
+    higher, you need a faster CPU.
+    </dd>
+
+<dt><b>-size {pixels}</b> (UmbraTk only)</dt>
+    <dd>Changes the size of the view window; the default is 480 now.
+    </dd>
+
+<dt><b>-fog</b> (UmbraTk only)</dt>
+    <dd>Turns on distance fog, which makes objects "popping" into visibility
+    more acceptable for some people.
+    </dd>
+
+</dl>
+
+<hr size="2" width="50%" />
+<p>Or for a text-only version:</p>
+<pre>
+python -O UmbraText.pyo &lt;OPTIONS&gt;
+</pre>
+
+<p>A typical text-mode map looks like this:
+<pre>
+West:
+                                _S9 A_S   _S9 B_S8                         
+                                _S9  _S9  _S9            #S6               
+                      ..2  #S  C_S9 D_S8 E_S8  #S8                         
+                           ..2  ..8  ==7  ..7  ..7                         
+                                ..7  ==6  ..6  ..6                         
+                      #S6  #S6 F_S6 G_S5 H_S5  #S5  #S5                    
+                                ==4  ==4  ==4                              
+                                    @==3                                   
+
+@=Jack; Killer; Sneak; Techie; Arcanist|G=a door
+A=a lamp; Boss Uxaru Fnuw              |H=a door
+B=a window                             |#S=Stone Wall
+C=a window                             |..=Grass
+D=a door                               |===Road
+E=a window                             |_S=Stone Floor
+F=a door                               |
+</pre>
+
+<p>Each grid shows a 'map key' (<tt>@, A..H</tt> on this example), which is
+defined below the map; then a two-character terrain type, also defined below
+the map; then the light level, <tt>1..9</tt> indicating 10-90%, ' ' indicating
+fully-lit.  Any empty grid is not visible, either because it is blocked by a
+wall, or because it is too dark to see.</p>
+
+<p>It's not pretty, but it's usable if you don't have a machine fast enough to
+run the Tk version.</p>
+
+
+<hr />
+<h2><a name="whatsnew">What's New</a></h2>
+
+<h3>Version 0.11, released 2002Sep16</h3>
+
+<p>It's been a while since I last worked on Umbra, and there are several bugs or
+quirks that need to be fixed.  So, I'm releasing it as open source - you should
+<a href="license.txt">read the license</a> if you're interested.  Also take a
+look at the <a href="history.txt">history.txt</a> file to see what I've done and
+what needs to be done, if you want to follow my course.</p>
+
+<p>I'm perfectly willing to host enhanced versions of it, and even maintain it
+somewhat, but I just don't have the time to work on it, and the frustrations of
+getting speed out of Tkinter or making a user-friendly Pygame game distribution
+are too much.  If you want to get into that, set up a mailing list and I'll help
+as much as I can.</p>
+
+<ul>
+<li>Reduced cost of teachers.</li>
+
+<li>Fixed bugs with the tavern.</li>
+</ul>
+
+
+<h3>Version 0.10, released 2001Jul15</h3>
+
+<p>I worked on the magic system, but it's not available yet, so there's not
+much new this release (thus the restrained tone of the bullet items), but there
+are some significant bug-fixes.</p>
+
+<ul>
+<li>Improved the start and other town generation.</li>
+
+<li>Locksmithing costs fatigue to use; if your fatigue overflows, you gain
+wounds.</li>
+
+<li>You can now Get All, instead of having to pick up each item one at a
+time.</li>
+
+<li>Improved treasure and monster mix for the ruins.</li>
+</ul>
+
+
+<h3>Version 0.9, released 2001Jul08</h3>
+
+<ul>
+<li>Summer school!  There are now a handful of teachers in each town who can
+improve your skills - but make sure you have plenty of cash, because they
+don't accept American Express.  You can find them by the signs out front of
+their houses.</li>
+
+<li>As seen on Miami Vice!  Well, rowboats to allow you to cross lakes and
+oceans, anyway, and there's no more "land border" around the outside, except
+near land.  Half of the beaches have a dock, so keep looking...</li>
+
+<li>Pre-Apocalyptic Cities!  Now you, too, can shop on 5th Avenue, or what's
+left of it.  The ruins are not for the weak-hearted or ill-equipped,
+however.</li>
+
+<li>Faster game and sector load/save - it should be a lot more tolerable now
+going between sectors.</li>
+</ul>
+
+
+<hr />
+<h3>Version 0.8, released ?</h3>
+
+
+<hr />
+<h3>Version 0.7.2, released 2001Jun17</h3>
+
+<ul>
+<li>Everything's going dark, boss!  There are now light levels, determined by
+the time of day if you're outside, and the presence of light-emitting items.
+There are lamps inside every building in town which you can [T]rigger on and
+off, and equipping a flashlight turns it on.
+
+<p>Because the lighting is fairly slow right now, you can turn it off with
+-nolight on the command line, or simplify it with -nolightlos - see the
+explanations of both in <a href="#options">Options</a>.</p>
+</li>
+
+<li>Hey, I've been here before!  Your characters now dutifully record
+everywhere they've been, and you can view that map with [M]ap on the main
+menu.  It will eventually be made more attractive (with little terrain icons),
+but it should be adequate as-is.  </li>
+
+<li>Ooh, it <b>is</b> a roguelike!  Text-mode is more usable now, as it now
+shows a key of all visible things on the map, and hides grids you can't see.
+</li>
+
+<li>Crime <b>does</b> pay (if you don't get killed in the process)!  There's
+now some minimal loot in townsfolks' homes, if you're willing to go take it
+from them.  But they may not be not happy about you breaking and entering...
+</li>
+
+<li>Gratuitous Property Damage!  You can chop down trees, bushes, doors, and
+altars now; just [A]ttack [M]elee [1]Ahead...  You'll have to use a melee
+weapon to get any cutting work done, and you have to do a certain amount of
+damage in a single blow.  Maybe a chainsaw would be useful, huh?
+Clear-cutting the forests sure does make exploring easier.  </li>
+
+</ul>
+
+<hr />
+<h3>Version 0.7.1, released 2001Jun03</h3>
+
+<p>I'm almost out of alpha, so I spent the weekend cleaning up the code,
+fixing bugs, and not adding much new functionality.  Thus the version number.
+I don't know how much I'll get done next weekend, as I have other plans, but
+I'll see what happens.  This would be a good time to really start playtesting
+it, if you're interested; if you can get above level 10, I'll be very
+impressed - email me, and I'll put you up on a hall of fame!</p>
+
+<ul>
+<li>Dungeon Hacking!  If you specify `umbra -hack` on the command line when
+you start a new game, you will start at the door of a temple, one sector
+<b>west</b> of the usual starting town (so head towards the sunrise to get
+back to town), with some minimal equipment instead of cash.  The bright side
+is that there's often some good loot in the dungeons.  The dark side is
+there's a lot of nasties in the dungeons, and you don't have much food.  It is
+possible to be placed in an enclosed canyon, with no way out.  I plan to fix
+this, but currently it happens on about 25% of the maps.</li>
+
+<li>Fixed a vast number of bugs in dungeon and wilderness generation - no more
+of those weird airlock-style double doors!  Really powerful monsters don't
+hassle you if you're a newbie!  Plus, skills don't start at -4 now!</li>
+
+<li>Locksmithing!  Doors may be locked and/or trapped now!  Just have your
+Sneak (or any other character who's learned Locksmith) "Use [S]kill", and
+it'll probably pop right open;</li>
+</ul>
+
+<hr />
+<h3>Version 0.7, released 2001May28</h3>
+<ul>
+<li><p>Hidden temples of Mogth cultists!  In the remote wilderness, the
+cultists have built their underground temples where they perform unspeakable
+rites to awaken Mogth...  The only trace of their temples is the unholy
+chanting echoing across the land, and the cultists wandering around everywhere
+(though sometimes they do that even when there's no temple).  So really,
+they're not hidden at all.  They're insane cultists of a mad god, what did you
+expect?</p>
+
+    <p>The dungeons are pretty shallow right now - at most 2 levels each.
+    That's because A) they're insane cultists, not burrowing cthonians, and B)
+    the dungeon generator is fairly slow, as I haven't had time to optimize it
+    yet, so 1 or 2 levels is long enough to wait.</p>
+
+    <p>I love dancing around the blood-stained obsidian altars until my entire
+    party goes mad...</p>
+</li>
+
+<li><p>The vicious sting of gossip!  Creatures now react to any actions they can
+see - if you attack their friends, they hate you; attack their foes, and they
+like you more.  They even tell their friends about you!  So you can no longer
+safely mug children for their lunch money...  At least, not while anyone's
+watching.  Nor is it entirely good for your mental health to hurt innocent
+civilians.  I'd stick to assaulting acolytes, but do as you will.</p>
+
+    <p>This, by the way, is one of the central design concepts for Umbra: to
+    allow you to do anything you like, but then carry out the consequences.
+    If you assault civilians for their money and possessions and the flesh on
+    their bones, there is a high price to pay for this.  If you're uncivilized,
+    you'll eventually go crazy and turn into a Mogth cultist.  There will
+    never be a "You refuse to do that!" response, and the game will never take
+    away control of your character unless you die or go mad.
+    </p>
+</li>
+
+<li>If you can see both sides of a fight between NPCs, you can now tell who's
+fighting whom.</li>
+
+<li>You can now shoot over water and through windows, and small critters can
+go places you can't.</li>
+</ul>
+
+<hr />
+<h3>Version 0.6, released 2001May20</h3>
+
+<ul>
+<li>Ranged attacks now use a proper target-selection menu of all legal shots.
+Entities no longer block line-of-sight, but that produced too many false hits,
+as if they filled an entire grid...</li>
+
+<li>Many new critters: new townsfolk, various cultists, more risen dead, and
+some really big spiders.  I've got 69 more critters named and roughly worked
+up, but so little time to put even my usual highly-artistic models in place
+for them and balance them in the game.  There are now critters on every kind
+of terrain, so it's at least interesting to explore now.  If you're playing it
+semi-seriously, you should to stick to the plains and deserts until you have
+some decent equipment and skill levels.  The forests, hills, mountains, and
+marshes are all hotbeds of cult and criminal activity.  Don't come crying to
+me when a Baron or an Assassin blow you away.  Oh, and the other 8 towns on
+the continent aren't very nice places, either - they're too much like <u>Sin
+City</u> (Frank Miller's graphic novels kick all available ass; and the
+Genetorturers song based on them is really damn cool, too - I've been playing
+that album a lot lately).</li>
+
+<li>The terrain generated for forests and mountains is much better now; it
+actually looks fairly natural.</li>
+
+<li>NPCs with guns get to shoot back at you (and at other critters they don't
+like)!  I was, ah, a little surprised myself at just how deadly some of those
+NPCs are now.  Like, having my entire party blown away by an Assassin before I
+could get in pistol range.  However, A) there's no indication of what kind of
+gun you're being shot with yet, and B) you can't really tell two other
+entities are fighting (except when one dies all of a sudden); man~ana,
+man~ana.</li>
+
+<li>Sam Pekinpah, eat your heart out - the guns now have smoke trails instead
+of those red tracer lines, and you get a bloodsplatter on the screen when you
+get wounded (one dripping splat per wound).  The status display is also
+somewhat better, with color-coded text and bars showing percent of full
+capacity.</li>
+
+<li>FDA warning!  Not every corpse is quite so yummy now.  Really, do you go
+around eating rats to get healthy?  And zombie flesh...  that's right out if
+you ask me.  And you know, chowing down on your fellow man may not be such a
+great thing for your social skills; look where it got Jeffrey Dahmer.
+<i>"Good food, good meat, good god, let's eat.  Ladyfingers, they taste just
+like ladyfingers!"</i></li>
+
+<li><i>"From hell's heart I stab at thee, with my last breath I spit at thee,
+for spite's sake, I curse thee..."</i>  When you die, you now get one last
+chance to act...  As long as you don't do anything to advance the turn (like
+waiting, attacking, etc.), your "dead" character remains active, so you can
+try to pass some food around and recover - <i>"all right, who ate all the
+emergency chocolates?"</i>.  This should make it much more survivable for
+smaller parties.  I playtest with three different parties: a 9-character
+combat squad, a 5-character group (my main one), and a solo character.  It
+ain't easy to do much with less than 5, but it is possible, especially since
+you don't have to share your ammo.  With more than 5, there's just not enough
+guns to go around; plus, you can't really empathize with them at all by that
+point.</li>
+
+<li>By the way, shops aren't just one-shot places; they restock every day or
+so.</li>
+</ul>
+
+<hr />
+<h3>Version 0.5, released 2001May13</h3>
+<ul>
+<li>New color theme!  Eventually this will be customizable, but for now you
+have to put up with my black and neon-green fetish.  At least it's consistent,
+instead of having bits of icky bland Windoze-like grey.  Great Cthulhu,
+Windoze has the most awfully drab color scheme imaginable, and why anyone
+would want to imitate it is a mystery to me.  </li>
+
+<li> Guns and Ammo!  You can now fill little critters and your fellow townsfolk
+full of lead.  </li>
+
+<li> [ Note: No, I'm not thrilled with the "Firing angle" dialog either, and
+that will be replaced with a proper target selector in a future version; it's
+there for technical reasons (i.e., I ran out of time because I saw _The Mummy
+Returns_ and went to a Terry Pratchett book signing - for _The Thief of Time_,
+no wonder this weekend seemed so short).  It's not really fair to make you
+guess the angle, since your characters can still miss on the Ranged skill
+check.  But until then, it's not that hard to guess the right angles, since
+you can count grid squares.  Think of it as harking back to David Ahl's
+classic "101 Microcomputer Games in BASIC".  Speaking of which, if anyone
+wants to sell me a copy, I will gladly pay a fairly outrageous price for it
+(and the other two in the series).  Those books are to a large extent
+responsible for me becoming the deviant game designer I am today, but I've
+lost several copies over the years to THIEVING BASTARDS WHO SHOULD HAVE THEIR
+BOWELS CUT OUT WITH A SPOON!!!  Ahem.  Where was I?  ] </li>
+
+<li> Food, glorious food!  You are no longer trapped in an Akallabeth(r)-style
+endless death spiral of wounds, you can now eat food (see _Repo Man_ for what
+a "can of food" is like; "Put it on a plate, dear, you'll enjoy it more."
+"Mmm mmm, couldn't enjoy it any more, Ma.") to recover your health.  You can
+eat corpses, too, if you're willing to risk it.  Mmm.  Yummy rat tart.  And
+every box of chocolates contains nougat (extremely nasty), Crunchy Frog, and
+Spring Steel Surprise.  </li>
+
+<li> Shopkeepers will now buy your worthless junk off you!  If you've recently
+upgraded to a 9mm submachinegun, no need to keep that old staplegun around!
+</li>
+</ul>
+
+<hr />
+<h3>Version 0.4, released 2001May06</h3>
+<ul>
+<li> Combat!  You can now kill and be killed, hunt and be hunted by rats and
+other assorted fauna of the world.  </li>
+
+<li> Shops!  You can now fulfill your wildest dreams of consumerism, purchasing
+mirrorshades, digital watches, leather jackets, chainsaws, and other staples
+of modern living, yes, even stapleguns.  </li>
+
+<li> Skills!  While many are of little use yet, the combat skills do work.
+</li>
+
+<li> New Professions!  The latest fad is to be a Jack (or Jill) of all Trades,
+master of none.  </li>
+
+<li> Interaction!  Yes, people now talk to you.  They don't have much
+interesting to say, but you can have branching conversations with some of them
+(go talk to a Boss to see this effect).  </li>
+</ul>
+
+<hr />
+<h3>Version 0.3, released 2001Apr22</h3>
+<ul>
+<li> Full town generation, though the doors still don't go anywhere (this is
+the top of my TO DO list for next week).  </li>
+
+<li> Critters!  There are now Citizens, Bosses, Lunatics, Rats, Rabbits, and
+Bloody Bones wandering around (in the town and plains only right now); they
+don't do anything except wander and get in your way yet, but that's second on
+my TO DO list.  Man, that town has a lot of rats.  Shame I haven't made any
+cats yet, huh?  </li>
+
+<li> Put in a (primitive but functional) sprite model system, so it's easy to
+add sprites for items, critters, and terrains.  So why is my world still so
+silly-looking?  Someday I'll get around to the texture-mapping, but don't hold
+your breath for it.  The polygon art is easy enough to create, and I kinda
+like it in a weird abstract way.  As long as you can tell what everything is,
+it's effective art IMO.  </li>
+
+<li> Added -size command-line option and moved "Get Item" to main menu in
+response to user feedback - YOUR COMMENTS CAN MAKE A DIFFERENCE! (as long as
+they're polite and focused on the game...) </li>
+</ul>
+
+<hr />
+<h3>Version 0.2, released 2001Apr16</h3>
+<ul>
+<li> Improved pre-alpha release </li>
+
+<li> More world generation - all terrain types, but still only one "town" and
+no dungeons.  </li>
+
+<li> Faster and smaller game load and save </li>
+
+<li> Sun, moon, and stars are visible - this is more important than you think!
+</li>
+</ul>
+
+<hr />
+<h3>Version 0.1, released 2001Apr11</h3>
+<p>First pre-alpha release</p>
+
+<hr />
+<h2><a name="future">The Future, Coming Sooner Than You Think!</a></h2>
+
+<hr />
+<h3>2001May20</h3>
+<ul>
+<li>Better NPC interactions; you should be able to influence their reactions
+with gifts or saying the right things to them.</li>
+
+<li>New commands: "party reorganization" and "pool cash".</li>
+
+<li>Give you more info on what NPCs are doing to you, not just the damage.</li>
+
+<li>Ability to see into other sectors, instead of the current
+<u>Thirteenth Floor</u>-like wireframe; I need to boost the speed of sector
+load/save before this is a practical idea.</li>
+
+<li>Customizable color themes.</li>
+
+<li>Skill training and use.</li>
+
+<li>Sound effects.</li>
+
+<li>Ruins of ancient cities and wilderness caves, all chock-full of treasure
+and nasty things that leap out at you with big sharp teeth.</li>
+</ul>
+
+
+<hr />
+<h3>2001Apr22</h3>
+
+<ul>
+<li> Real names for all the humans, and probably no names on the critters.
+Then again, maybe I'll leave the latter alone for now; it lets you tell
+individuals apart, and "Shivu, a Rat" and "Xaa, a Rat" are better than "Rat A"
+and "Rat B".  </li>
+</ul>
+
+<hr />
+</body></html>

@@ -1,0 +1,817 @@
+Umbra
+
+{_To_Do__________________________________}
+
+01Jul29 Entity.effects/Script: allow some way for a script to remove itself
+01Jul29 Brain: don't list isBurrowing critters in friends/foes
+
+01Jul28 Magic tomes increase Magic skill without a teacher, but cost Madness
+
+01Jul08 General store: Inflatable raft
+01Jul08 Ruins: highway
+01Jul08 Dungeon dressing
+01Jul08 Brains:
+        brainRat: do not move away from walls, otherwise random, will attack
+            if they or any nearby Entity, rat or not, are injured
+        brainZombie: if any warm Entity in range, move toward it and attack,
+            else random.
+        brainHerbivore: move away from any Hostile Entity; move toward any
+            Loved Entity; else move forward 80%, turn left 10%, turn right
+            10%.
+01Jul08 Allow some species (Rat, Rabbit, etc.) to breed if two are adjacent
+01Jul08 Aquatic monsters
+01Jul08 Aerial monsters?
+
+01Jul07 Transport to an alien sector from inside of Mogth's temple
+01Jul07 Use Butcher skill to turn corpses into one or more gobbets instead of
+        eating "corpse of..."
+01Jul07 Entities should hear loud noises and come to investigate
+01Jul07 Do redraw in multiple passes:
+        1) Collect terrain, stuff, and light
+        2) Run visicalc
+        3) Expand light sources
+
+01Jul04 Secret doors
+
+01Jul01 Only map visible squares (check lightmap), integrate with VISICALC
+
+01Jun18 Make clearLOS even faster somehow!
+01Jun18 Tile graphics for Map
+
+* 01Jun14 Show damage overlay on critters
+
+01Jun04 Smart entities can open/close/lock/trap doors
+
+01Jun03 Find a way to make nextTurn faster, then shift back to updating
+        everything on the level
+01Jun03 Damage to target's equipment on extraordinary attack rolls
+
+* 01May30 Trigger door with anything in it should fail, trigger items/entities
+        instead.  Trigger should present a menu of available items.
+
+01May28 Track which sectors have been created, refuse to recreate one if some
+        cheater deletes a sector
+01May28 Better recovery from a crash while loading a new sector
+01May28 NPCs should use items they pick up, if they can.
+        In factory, block off Entity.equip slots they shouldn't use.
+01May28 Try to make Dungeon faster
+* 01May28 Big arrow on display indicates that you're turning or moving
+01May28 When anything living, including a player, dies from anything except
+        insanity, there's a chance the corpse will rise as a zombie...
+
+01May26 Attacks at more than range 1 take a bonus or penalty based on size
+01May26 Better "Game Over" dialog
+
+01May21 Forest: Hangman looks like a tree with tentacles
+
+01May20 Command to reorder the party
+
+01May19 "Number Encountered" field in Bestiary, Sector.makeEncounters uses it
+        to place several of the same kind together if possible.
+
+01May13 Customizable color themes
+
+01May10 Pool cash command
+01May10 Effect: "roll n s b m" optionally used to set state to determine
+        amounts for other effects:
+        roll -2 2 2
+        t stat Wounds
+        t stat Fatigue
+
+01May06 Models: armor, headgear, accessory
+01May06 Scrollback for status
+
+01Apr29 Door: use Knock spell, or Key item
+01Apr29 class Key(Item.Item): any key opens any door
+
+01Apr24 itemLabel used in equip/inv/get: show an icon for item type
+
+01Apr23 Sound effects, with quote balloons next to noise-making sprites
+01Apr23 Memo & score server
+01Apr23 Show stats as a green/yellow/red bar with a descriptive word inside,
+        no numbers
+
+01Apr22 Entity respawn on entering a map if there are few or none in it
+        (if 1d10>ncritters?)
+01Apr22 NPC knowledge and rumors
+01Apr22 partial, semi-accurate (blank spots) maps of the world for sale
+01Apr22 Call the current Zone in Game.turn()
+01Apr22 Stat recovery?
+01Apr22 Every night, have one star flare in a supernova and vanish, deleted
+        from the star list.
+
+01Apr22 Sector types:
+        riverNS, riverEW, riverX, lake
+        flow from mtns to sea, choosing lower terrain, then equal, then
+        laking.
+01Apr22 convert (plains, hills, water) near towns to (farm, farmHills, dock)
+01Apr22 Starport near a ruin
+01Apr22 Terrain:
+        Pillar
+        Stone_Stairs (black at top)
+        Wall, Door_*, Floor -> Stone_*, Plaster_*, Wood_*
+        Marsh
+        Quicksand (looks almost exactly like sand!)
+
+01Apr22 Entity:
+        status={} # keyword:=Int
+            - checked every turn
+        genotype=0
+            - warm-blooded
+            - cold-blooded
+            - insect
+            - machine
+            - undead
+01Apr22 friendliness=0
+            - mod to charm/persuade
+            - results:
+                - neverending enmity, gains goal "kill this person"
+                - hostile, will kill on sight only
+                - dislike, will jack up prices, give misleading or no info
+                - neutral
+                - tolerant
+                - friendly, will give discounts
+                - true love, will obey any command until it lowers friendliness
+
+01Apr14 Keep 9 sectors in memory, and allow vision across sectors.  Then get
+        rid of walkable edges around sectors.
+
+01Apr01 Change the sky by weather.
+01Apr01 Use texture-mapping on top of the polygons; even figuring out how to
+        stipple with custom bitmaps would be a big improvement.
+
+{_Done___________________________________}
+
+01Jul29 Spells: Lesser/Greater Summon *
+
+01Jul28 Magic: Skill.useMagic and all of Spell except use_*
+
+---39 days---
+
+01Jul14 Town: don't make doors against the "road" that gets replaced with the
+        town wall.
+01Jul14 Town: don't create main street for other towns, give them
+        randomly-placed shops
+01Jul14 Get all
+01Jul14 Skill use costs: Locksmith costs 1d6 Fatigue
+
+01Jul13 Ruins: cash is now placed
+01Jul13 Town: Don't create inhabitants in front of the door!
+
+01Jul08 pickling entire Game instead of a list of data fields
+01Jul08 Moved redraw to Game
+01Jul08 Teachers give training in a skill
+01Jul08 Undead: If on level 0 during the day, burrow and do nothing, draw mist
+        occasionally.
+01Jul08 Differentiated food and corpses.
+
+01Jul07 Dungeon doorways
+01Jul07 Changed dungeon height to 1.25
+01Jul07 Make generators for all sector types, use a dict to select which one
+        to use.
+01Jul07 Hand to merchant: consolidate identical items, only accept appropriate
+        items
+01Jul07 Vehicles, specifically boats
+01Jul07 Water bordering on land has a beach, and possibly a dock, if the next
+        sector is not water
+01Jul07 moved S_* from Sector to Global.SECTOR_*
+
+01Jul04 Finished generator for ruins suburb
+01Jul04 Switched back to cPickle, pickling entire Sector object instead of the
+        sector data and each level.
+01Jul04 Added Phantom, Ghost, Spectre
+01Jul04 Fixed Bestiary["unarmed"] entries that used STAT instead of DMG
+
+01Jul01 Ruins stairs: there were 3 per level, because I was binding both up
+        and down with makeStairsPair.  <sigh>
+01Jul01 Filled downtown buildings with loot and monsters
+01Jul01 Terrain: Skyscraper, Sky_Doorway
+01Jul01 Sprite: panelcmd sides NRFL and emitcmd allow the building of
+        facing-dependant models; changed door and window to use this.
+
+01Jun24 Fixed Bestiary.FRIENDS["rat"], which allowed rats to gossip to humans.
+01Jun24 Created CALevel
+01Jun24 Ruins: suburb, downtown
+
+01Jun18 [M]ap: show world and sector maps.
+        Game.playerMap filled in by Game.getSector()
+        Sector.playerMap[levelnum] filled in by Game.nextTurn()
+01Jun18 Fixed defect: locksmith wasn't updating the linked door
+01Jun18 Fixed defect: taking Madness from killing Citizens, etc. wasn't
+        calling checkStatus()
+01Jun18 Fixed defect: Town was placing people in their homes on level 0, stuck
+        in the walls.
+01Jun18 Town: now generates loot in buildings and locks doors
+01Jun18 Change Tree base to brown
+01Jun18 Terrain: TreeStump
+01Jun18 Terrain
+        .toughness=Int #0:=invulnerable, 1+:=dmg in a single attack needed to
+            transform to self.damaged
+        .damaged=Terrain
+01Jun18 Umbra.selectMeleeTarget: [1] Ahead
+01Jun18 Chopping down doors
+01Jun18 Destroy altars, get XP and a counter in Game
+
+01Jun17 Improved UmbraText - shows a key describing everything you can see,
+        and checks for clear LOS
+01Jun17 Thing.light_level, flashlight.light_level=3
+01Jun17 Lightmap in Umbra.view
+        fill with Game.light_level on lvl 0, 0 on lvls 1+
+        for each thing,
+            if it has light_level,
+                apply level, -1 per grid distance
+        for each grid, clip light_level to 0..10, divide by 10.0
+01Jun17 Sprite.draw takes light_scale and calls util.colorTransform
+01Jun17 Added lamps to town and altars glow
+01Jun17 Rewrote Level.clearLOS to use int instead of double, doubled speed.
+01Jun17 Changed default VIEWDIST to 8
+01Jun17 -nolight and -nolightlos to Umbra
+01Jun17 Script.do_light
+01Jun17 Start town always has one of each kind of shop
+01Jun17 Sub-minor version numbers don't cause a version mismatch on saved
+        games; make sure to advance minor version whenever the save file
+        changes!
+
+01Jun03 Merged Script and Effect into one class
+01Jun03 -hack starts you just outside a temple with some minimal equip, but
+        no money.
+01Jun03 Fixed skill gain bug: it added 1 to the default level of -5!
+01Jun03 Dungeon: filtered out doors like this:
+        ________
+        __+n____
+        ##+n####
+        ##____##
+01Jun03 Changed Terrain.Mountain.char to 'MM' and Sector.Mountains to 'M' for
+        better readability
+01Jun03 makeOneEncounter now includes average player levels in the encounter
+        rank, and applies it to all hostiles, whether on the surface or in a
+        dungeon.
+01Jun03 Use Skill: only applies to Locksmith right now
+01Jun03 Sorted game copy/delete/load lists
+
+01May28 Town, Plains split from Sector
+01May28 Take madness for killing a member of a friendly species =
+        max(0, friendliness*util.d(1, 4))
+01May28 Friendly Entities gossip, merging friendliness lists when adjacent
+01May28 Sectors with temples have different encounter tables
+01May28 Temples in 10% of forests, mountains, hills, desert, and marsh
+01May28 Encounters and treasure in temples
+01May28 Terrain: Altar
+01May28 Script: effect
+01May28 Effect: taskstat, taskskill
+01May28 If a player goes insane, it becomes a Lunatic NPC.  Hee!
+
+01May27 Temple, Dungeon, DungeonFeature
+
+01May26 Bestiary.SPECIES_DATA.friendSpecies now records specific friendliness
+        level; humans are neutral to rats but friendly to each other, etc.
+01May26 Critters now resent it when you attack their friends in their sight,
+        and like you when you attack their enemies.
+01May26 friendSpecies groups: "minions", "humans", etc.
+01May26 Added size to Entities; small critters can move through trees and
+        cannot be attacked while under that cover.
+01May26 Show NPCs fighting
+01May26 Level.getThings()
+01May26 Terrain: Stone_Window
+01May26 Terrain.opaque, Thing.isOpaque()
+01May26 Brain: B_Autopilot
+01May26 Started building Mogth-cult temples
+
+01May20 Made better forest and mountain sectors
+01May20 Player turns are done first in nextTurn, and they are not given a turn
+        with the critters; this gives you until your next turn to do things if
+        you die.  This was already the case if you were north or due west of
+        your attacker, I just generalized it.  This helps a lot when playing
+        just one or two characters - "damn, where'd those emergency chocolates
+        go?"
+01May20 Red stipple over dying characters, improved color-coded stat summary
+01May20 Model: zombie (crap), bloody_bones (major improvement), baron, spider
+01May20 Critter: Harvestman, Jumping Arantula, Zombie, Baron, Jackalope
+01May20 Fixed problems with too-long menus in UmbraTk
+01May20 Fixed clearLOS so you can't shoot through closed doors any more...
+
+01May19 Ranged attacks now choose from a menu of all legal shots.  Targets no
+        longer block each other, but that feature produced too many false hits
+        from entities filling an entire grid anyway...
+01May19 place towns (WORLDSIZE/8 plus the starting town) next to water 90% of
+        the time
+01May19 Model: soldier, cultist
+01May19 Moved all Entity construction into Bestiary module.
+01May19 NPCs with guns get to shoot back if they make a Speed roll.
+01May19 NPCs can pick things up if they've got nothing better to do.
+01May19 List repeating items in status and inventory as "%s (x%d)"
+01May19 Starting town is fairly peaceful (except for all the damn rats), other
+        towns are much meaner.  Son, don't take your gun to town.
+01May19 Show blood splatters when you get wounded
+01May19 Different critters have different food values as a corpse.
+01May19 Encounters for all terrain types
+01May19 Critters: remaining townsfolk, cultists
+
+01May13 Drop cash where there already is cash should just add to that cash
+01May13 class Cash(Loot)
+01May13 Umbra.selectTarget
+01May13 View Char menu: "Hand Item to NPC"
+01May13 Ranged combat
+01May13 class Ammo(Loot)
+01May13 Models: gun, ammo
+
+01May12 Brain: B_Coward
+01May12 Doors, supposedly the same instance, did not always have the same state
+        on different levels.  This is a bad idea, anyway, since they'll have
+        different locations but supposedly be the same object.  Door.linkedTo
+        holds the coord of a matched Door to change state in lockstep.
+01May12 Show secondary stats for all PCs in the character frame, replacing the
+        buttons.
+01May12 Set system-wide colors - black and green!
+
+01May10 Added food effects
+01May10 Game should not store its name, because that is used to determine the
+        save path.
+
+01May06 Created Melee, Ranged, and Defense subclasses of Equip
+01May06 Created Skills: Melee, Ranged, Dodge, Locksmith, Repair, Science,
+        Magic, Archaeology
+01May06 Added starting skills to Entities based on Profession
+01May06 Experience, levels, skill gain (currently random until schools are in)
+01May06 Created Effect: stat
+01May06 Main Menu: "Attack": prompts each character for an action: Pass, Melee
+01May06 Combat: strike, dodge, and armor
+01May06 Entity.defense=0, .unarmed=Fisticuffs
+01May06 Brain: B_Still, B_Hunter
+01May06 Entity.friendSpecies, friendliness (very basic)
+01May06 Renamed Wizard to Arcanist
+01May06 Handled player death
+01May06 GameOverException
+01May06 Move status text off view window and into a label
+
+01May05 Bound arrow keys to move buttons in addition to Roguelike keys.
+01May05 Merchants
+01May05 Added "Jack of all Trades" profession, who get a 20% xp bonus but have
+        no starting skills.
+01May05 Shops
+01May05 Enforced MAXITEMS limit better
+01May05 Line wrapping with util.foldLines()
+
+01May04 Refactored Canvas3D out of UmbraTk
+
+01May03 Moved indoors door just outside of the buildings, added Into_Darkness
+        terrain.
+01May03 Rearranged the user interface to put the controls on the right
+01May03 Added Terrain.Into_Darkness to make the inside of doors black.
+
+01Apr29 Moved status to a pair of labels above the view, no redraws needed to
+        make them update - hooray!
+01Apr29 Created buttons for the main menu and characters.
+01Apr29 Moved most of the level construction to Sector, so __makeTown could
+        work on two levels at once.
+01Apr29 Minimal scripting, ECHO and TELEPORT
+01Apr29 Created indoors level for town, with teleports back and forth.
+01Apr29 class Door(Thing.Thing), trigger opens and closes them.
+01Apr29 Scale stars so changing the screen size doesn't leave a black spot in
+        the sky.
+01Apr29 Cash
+
+01Apr28 Wasted a day installing SuSE 7.1, broke everything.  Bah.
+
+01Apr23 Turning does not cost a turn now, since it doesn't cost other Entities
+        anything.
+
+01Apr22 Entity.gender and .species
+01Apr22 Encounter tables for plains and town
+01Apr22 Entities wander aimlessly on turns when they make a Speed roll.
+01Apr22 Entity.brain is a key from Brain, choosing among module functions:
+            bob.brain=Brain.slackBrain
+            Brain.think(bob)
+01Apr22 Movement blocked by other Entities
+01Apr22 Created Rabbit, Rat, Bloody Bones, Lunatic, and Boss sprites
+
+01Apr21 util.d() handles negative dice, negating the entire roll.
+01Apr21 Added -size <n> option to UmbraTk
+01Apr21 Added -nodebug option to Umbra
+01Apr21 Added Get to main menu
+01Apr21 Created Sprite, converted most of Terrain
+01Apr21 Assigned Sprites to Things
+01Apr21 Filled in the rest of the town
+01Apr21 Created a swarm of humans with silly names in town
+
+01Apr15 Change the sky, sun, and moon by time of day.  Eclipses are possible!
+        Constellations of stars are generated when a game is created.
+
+01Apr14 Changed Thing.loc to __coord=Int, since the Sector is always known.
+        __coord=(levelnum<<20)|(y<<10)|x
+        Level uses:
+            __terrain=String[]
+            __stuff=List{}
+        Removed Grid
+        This speeds up load/save times and reduces memory usage.
+01Apr14 Added altitude and height to drawBlock; used those to simplify
+        drawStoneRooftop()
+01Apr14 Optimize loadGame, saveGame:
+        saveSector(save/a/128_128.sec) took     99ms
+        saveGame(save/a/game.dat)
+        saveGame(save/a/game.dat) took          199ms
+        loadGame(save/a/game.dat)
+        loadGame(a) took                        2520ms
+        loadSector(save/a/128_128.sec) took     3109ms
+        saveSector(save/a/128_129.sec) took     139ms
+        saveGame(save/a/game.dat)
+        saveGame(save/a/game.dat) took          199ms
+01Apr14 Mountains, Hills, Marsh, Desert (aka beach), and Forest sectors.
+01Apr14 Optimized loadSector, saveSector:
+        saveSector(save/b/128_128.sec) took     10ms
+        saveGame(save/b/game.dat)
+        saveGame(save/b/game.dat) took          210ms
+        loadGame(save/b/game.dat)
+        loadGame(b) took                        2589ms
+        loadSector(save/b/128_128.sec) took     180ms
+        saveSector(save/b/128_128.sec) took     19ms
+        saveGame(save/b/game.dat)
+        saveGame(save/b/game.dat) took          190ms
+        Pickling long lists of items is VERY slow!!!
+
+01Apr11 Game menu: New Game, Load Game, Copy Game, Delete Game, Quit
+        Allows cancel of New Game, etc.
+
+01Apr08 View Char menu: "Trade Item to Another PC"
+01Apr08 Put grey walls at extreme edge of vision for "fog", if the -fog
+        command-line argument is given.
+01Apr08 Use [wy*WORLDSIZE+wx] for sector types
+01Apr08 Do not keep everything in memory.  Page out any Sector you are not
+        currently in.
+01Apr08 Movement between Sectors
+01Apr08 Load and save works on subdirs of db
+01Apr08 Land sectors have a rim of clear terrain to enter.
+01Apr08 Game.__makeSectors produces a whole random planet.
+01Apr08 Minimalistic polygon art for Hill, Tree, Bush, Equip, Entity, and
+        Water.  It's bleak, sterile, and cubist, but kinda compelling, like
+        the Teletubbies world...
+01Apr08 Created ponds in Plains - without bridges, I can't afford to do
+        rivers.
+
+01Apr07 Main Menu: "Step Left", "Step Right", "Turn Back"
+01Apr07 Create loot and equipment
+01Apr07 Implement Thing.draw()
+01Apr07 View Char Menu: "Get Item", "Examine", "Use Item", "Remove Equipment",
+        "Drop Item"
+01Apr07 Main Menu: "Quit" should prompt to save or not
+01Apr07 Moved all character-specific commands to View Char menu
+01Apr07 -viewdist command line option
+
+01Apr01 Implemented pseudo-3-D with colored polygons
+01Apr01 Took Terrain references out of Grid
+01Apr01 Replaced Coord with Level ref and Int (y<<16)|x
+
+01Mar31 Put facing in Game
+        01Apr08 Removed it with getFacing() from party[0]
+01Mar31 Replaced move North/East/South/West with:
+        Step Forward
+        Turn Left
+        Turn Right
+        Step Back
+01Mar31 Started on 3D graphics code
+01Mar31 Refactored generic Tk stuff and testing out of UmbraTk
+
+01Mar29 Improved the Town generator, still only makes main road and keep.
+
+01Mar25 Implemented character creation, main menu up through basic movement,
+        showMap and showCharacter (both very primitive right now).
+
+01Mar24 Restored to the desktop, implemented framework and initial menus.
+
+01Mar18-01Mar23 Worked on it on my PalmPilot all week.
+
+01Mar17 Created.
+
+{_Design_Notes___________________________}
+
+Concept:
+
+- A *simple* computer role-playing game.  The world is randomly-generated, but
+there is an eventual goal.  Heavily influenced by roguelike games, Alternate
+Reality, and console RPGs like Lunar 2.
+
+- Single view.  There are a couple of roguelike games with wilderness levels
+(Omega and ADOM), but they use pregenerated world maps, use a different scale
+for it, and have different actions available.  The original Ultima games had
+3-D wireframe for the dungeons, but tile-based wilderness...
+    I want the player to ALWAYS see the world at the same scale, from the same
+perspective, with the same controls.  Likewise, console games switch to a
+battle map for fights; that should happen in your normal view.
+
+- THE FUNDAMENTAL PRINCIPLE:
+    Simplicity of gameplay is more important than realism.
+
+- Set after a magical apocalypse, the Great Old Ones, led by Mogth, have
+reclaimed the Earth from the infestation of Humanity.
+
+- Goal: gain enough power to defeat Mogth and free Humanity or escape the
+planet.
+
+- Gameplay: move, use item, use skill/power/spell, talk/trigger, attack,
+menu.
+
+- The world is 2-D, 256*256 sectors.
+
+- Sectors consist of an overall terrain type and 1 or more levels, counted
+from 0 up, whether the levels are a dungeon or a tower.
+
+- Levels are 2-D, 64*64 grids.  Grids are 2m*2m*2m.
+
+- Yes, this is really huge.  32km square, in fact.
+
+- Levels may have Zones, which run every turn the player is on that level.
+
+- View shows pseudo-3-D, with a 90&deg; POV.  Things have one or four 256x256
+sprites.
+
+- Combat happens from your POV.  Weapons can hit Entities in a 180&deg; FH arc.
+
+- Equipment (weapons, armor, rings, etc.) is readied when "used", and has
+constant effects.
+
+- Loot must be "used" to do anything, triggers an effect when used, and may be
+one-shot or permanent.
+
+- Items which are not Loot or Equip cannot be taken, but can be triggered.
+
+- PCs & NPCs use the same classes, Game controls party members, AI controls
+NPCs.
+
+{_Bestiary_______________________________}
+* = unimplemented
+
+NPCs: Anyone you can talk to
+    Human
+    Boss
+    Soldier
+    Merchant
+    Citizen
+    Prostitute
+    *Farmer
+    Child
+    Lunatic
+    Mercenary, Torpedo, Assassin
+    Thug, Bandit, Thief
+    Nerd, Geek, Engineer
+    Apprentice, Wizard, Archmage
+    Cultist, Acolyte, High Priest
+
+Creatures: Normal animals
+    *Alligator
+    *Army Ant Swarm
+    *Babboon
+    *Barracuda
+    *Bat
+    *Bear
+    *Boar
+    *Cat
+    *Chicken
+    *Cow
+    *Coyote
+    *Deer, Buck/Doe
+    *Dolphin
+    *Duck
+    *Goat
+    *Goose
+    *Horse
+        Not available until mounts are implemented, riding is a skill
+    *Killer Bee Swarm
+    *Monkey
+    *Moose
+    *Orca
+    *Panther
+    *Pig
+    *Piglet
+    *Puma
+    *Python
+    Rabbit
+    Rat
+    *Rattlesnake
+    *Raven
+    *Sea Lion
+    *Shark
+    *Vulture
+    *Wildcat
+    *Wolf
+
+Monsters: spawn of Mogth
+    *Angel
+        Human/swan hybrid
+    Arantula, Jumping
+        4m-tall tarantula
+    *Arantula, Spitting
+        4m-tall tarantula
+    *Arantula, Trapdoor
+        4m-tall tarantula
+    *Artillery Bug
+        A blast of steam propels a stone from its gullet
+    *Basilisk
+        rooster, spits poison
+    *Billipede
+    *Black Widowmaker
+    Bloody Bones
+    Zombie
+    Baron
+        Bio-Zombies (see Varley's _Demon_)
+    *Chimera, Rat/Vulture/Cockroach
+        Human merged with an animal
+    *Demon
+        Human/bat hybrid
+    *Dero
+        Human/rock/mud hybrid
+    *Devil
+        Human/mtn goat hybrid
+    *Devilfly
+        1m-long dragonfly, seizes things in its legs
+    *Digger
+        Human/badger hybrid
+    *Dogboy
+        Human/dog hybrid
+    *Elemental, Smog/Plutonium/Iodine
+    *Pixie, Elf, Nymph
+        Human/plant hybrids
+    *Freak, Midget/Deviant/Giant
+        deformed Humans (not just size but shape as well)
+    *Gargoyle
+        Human/alligator hybrid
+    *Globbo
+        Slime mold
+    *Gobbler
+        Giant toad
+    *Hangman
+        Trees with noose-like tentacles
+    Harvestman
+        Daddy long-legs, *BIG* fangs
+    *Hippogriff
+        Carnivorous horse
+    *Hut Crab
+        Hut-sized hermit crab
+    *Honeytongue
+        Giant sundew, sticky, acidic
+    *Myrmidon
+        Giant termite
+    Phantom, Ghost, Spectre
+        Luminous semi-substantial life-hunters
+    Jackalope
+        Killer rabbits with antlers
+    *Manticore
+        Panther with a human face above the jaw
+    *Meatgrinder Slug
+    *Mermaid
+        Human/shark hybrid
+    *Ogre/Hag, Ghoul, Wendigo
+        Human cannibals in 3 stages of corruption
+    *Supermaggot
+        Giant carnivorous worm
+    *Sword Heron
+        Carnivorous heron with a razor-sharp bill, attacks in flocks
+    *Vampire, Flying
+        Giant bloodsucking bat
+    *Vampire, Hopping
+        Giant bloodsucking tick
+    *Vampire, Swimming
+        Giant bloodsucking leech
+    *Yardworm
+        Like an inchworm, only bigger.  Poison bristles.
+
+{_Goals__________________________________}
+
+There are two goals:
+1. Defeat Mogth
+    - collect weapons, armor, artifacts
+    - increase in power
+    - gather allies & armies
+    - go to confront Mogth
+    - "kill" it
+    - it rises from death, destroys humanity as you watch
+    - get destroyed & devoured
+    - fade to black
+
+2. Lead Humanity Off Earth
+    - find the starport & clear it of monsters
+    - collect operation & repair manuals and spare parts
+    - repair the starship
+    - gather allies & refugees
+    - escape, see any left behind get destroyed and devoured
+    - land on New Earth
+    - as a cut scene: past trees from landing site, see a temple of Mogth,
+    hear mocking laughter
+    - fade to black
+
+{_Scripts________________________________}
+
+A list of:
+<who> <command>
+who := <target>|<user>
+target := t
+user := u
+
+command := any of the following: (* = not implemented)
+
+    # displays text as a message to who
+ECHO <text>
+    # teleports who to levelnum, x, y, and changes facing (Global.North, etc.)
+    # if given.
+TELEPORT <levelnum> <x> <y> [<facing>]
+* LONGTELEPORT <wx> <wy> <levelnum> <x> <y> [<facing>]
+    # added to who's stats; use negative ndice to subtract
+    # secondary stats are increased to harm the target...
+STAT <stat> <dice string>
+    # identical to stat, but affected by armor
+DMG <stat> <dice string>
+    # n=turns, 0=until removed, -n=every n turns
+* DURATION <turns int>
+    # only affects these genotypes
+* GENOTYPE {<type string> }*
+    # does not affect these
+* NOTGENOTYPE {<type string> }*
+    # chance of spreading to all in 1 square; autohits any who touch the
+    # infected, with the current remaining duration
+* CONTAGIOUS <percent>
+    # status[keyword] += 1
+* STATUS <keyword string>
+    # status[keyword] -= 1
+* NOSTATUS <keyword string>
+    # skill[skillname] += lvl
+* SKILL <skillname string> <lvl int>
+    # del skill[skillname]
+* NOSKILL <skillname string>
+    # the area of effect is centered on who
+* AREA <diameter>
+    # visual fireworks
+* VISUAL <effect>
+    # ends the effect if it passes (RQ>=0), displays the failmsg and ends the
+    # script if it fails (RQ<0)
+SAVESTAT <stat> <modifier> [<failmsg>]
+SAVESKILL <skillname> <modifier> [<failmsg>]
+* SOUND <filename>
+* IMAGE <frametitle> <filename>
+    # returns from the script if target.player==test
+* ISPLAYER <test>
+* GAMEOVER <bigtext>
+* EXPERIENCE <xp>
+* CASH <pennies>
+    # gives a light_level of lum to who
+LIGHT <lum>
+
+- examples:
+    Small Blade
+        t Wounds 1 10 0
+    Large Blade
+        t Wounds 2 10 0
+    .22
+        t Wounds 1 10 0
+    Mild Acid
+        t duration 3
+        t contagious 10
+        t Wounds 1 10 0
+    Strong Acid
+        t duration 6
+        t contagious 10
+        t Wounds 2 10 0
+    Blindness
+        t notgenotype demon insect
+        t duration 0
+        t effect blindness
+    Heebee Plague
+        # By having contagious and duration before genotype, non-warm
+        # Entities can be carriers even though it doesn't affect them.
+        t contagious 90
+        t duration -600
+        t genotype warm
+        t Speed -1 3 0
+
+{_Model_File_Format______________________}
+
+line := <comment>|<blank>|<cmd>
+
+cmd := <definecmd>|<blockcmd>|<panelcmd>|<polygoncmd>|<linecmd>|<ovalcmd>
+        |<namecmd>|<emitcmd>
+
+definecmd := d:<name>:<value>
+blockcmd := b:<side>:<fill color>:<outline color>:<opts>
+panelcmd := p:<side>:<fill color>:<outline color>:[lrnftbLRNF]:<opts>
+polygoncmd := y:<side>:<fill color>:<outline color>:<points>:<opts>
+linecmd := l:<side>:<fill color>:<points>:<opts>
+    # only two points are used, for top-left and bottom-right
+ovalcmd := o:<side>:<fill color>:<outline color>:<points>:<opts>
+    # only the y coord of the first point is used
+namecmd := n:<side>:<fill color>:<points>
+    # emits all LRNF panels and clears them for another model
+emitcmd := e
+
+    # if all side conditions are met, then the command is executed
+side := [alrcn]
+    a=any side
+    l=left (nx<0)
+    r=right (nx>0)
+    c=center (nx==0)
+    n=not here (nx!=0 or ny!=0)
+
+color := {#[0-9a-fA-F]*6}|{}
+
+points := {<x>,<y>,<z>;?}*
+
+opts := {<name>=<value>,?}*
+
+{_EOF____________________________________}
