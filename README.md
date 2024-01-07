@@ -7,9 +7,9 @@ This is an unofficial Python 3 port of the Python 2.1 source code.
 
 ## Screenshots
 
-![A screenshot of _Umbra_ showing the starting town.](screenshot-1.png)
+![A screenshot of _Umbra_ showing the starting town.](docs/screenshot-1.png)
 
-![A screenshot of _Umbra_ showing an outdoor area.](screenshot-2.png)
+![A screenshot of _Umbra_ showing an outdoor area.](docs/screenshot-2.png)
 
 ## Description
 
@@ -45,7 +45,7 @@ Run `umbra.sh --text` or `umbra.cmd /text` respectively for text mode.
 
 ## Documentation
 
-For the original documentation see [`README.html`](README.html).
+For the original documentation see [`docs/README.html`](docs/README.html).
 
 ## License
 
