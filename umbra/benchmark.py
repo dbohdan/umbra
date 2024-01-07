@@ -5,11 +5,16 @@ import time
 MAX = 100000
 color = "#ffcc99"
 
+
+def print_time(label, start, end):
+    print("{0} took {1:.2f} ms".format(label, (end - start) * 1000))
+
+
 t1 = time.clock()
 for i in range(MAX):
     pass
 t2 = time.clock()
-print("calibration took", (t2 - t1) * 1000, "ms")
+print_time("calibration", t1, t2)
 
 t1 = time.clock()
 for i in range(MAX):
@@ -17,13 +22,13 @@ for i in range(MAX):
     green = int(color[3:5], 16)
     blue = int(color[5:7], 16)
 t2 = time.clock()
-print("string.atoi took", (t2 - t1) * 1000, "ms")
+print_time("int", t1, t2)
 
 t1 = time.clock()
 for i in range(MAX):
     rgb = binascii.a2b_hex(color[1:7])
-    red = ord(rgb[0])
-    green = ord(rgb[1])
-    blue = ord(rgb[2])
+    red = rgb[0]
+    green = rgb[1]
+    blue = rgb[2]
 t2 = time.clock()
-print("binascii took", (t2 - t1) * 1000, "ms")
+print_time("binascii", t1, t2)
