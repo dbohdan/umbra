@@ -14,7 +14,7 @@ LIGHT_LOS = 1  # check LOS on light? (VERY slow!)
 VISICALC = 0  # use visicalc to determine which grids to draw?
 START_DEBUG = 0  # 0=town, 1=near temple, 2=near altar, 3=near ruins
 
-VERSION = "0.11"
+VERSION = "0.11.1"
 TITLE = "Umbra %s" % VERSION
 COPYRIGHT = """(c) Copyright 2001 by Mark Hughes <kamikaze@kuoi.asui.uidaho.edu>
 All Rights Reserved
