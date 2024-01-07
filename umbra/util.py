@@ -76,9 +76,9 @@ def colorTransform(color, scale=None, delta=None):
         return cached
         #    if len(color) != 7: raise ValueError, "Invalid color '%s'!" % color
     rgb = binascii.a2b_hex(color[1:7])
-    red = ord(rgb[0])
-    green = ord(rgb[1])
-    blue = ord(rgb[2])
+    red = rgb[0]
+    green = rgb[1]
+    blue = rgb[2]
     if scale is not None:
         red = red * scale // 10
         green = green * scale // 10
