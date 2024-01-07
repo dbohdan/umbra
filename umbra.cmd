@@ -11,4 +11,4 @@ if "%1"=="/text" (
    shift
 )
 
-python3 -O -m umbra.%module% %1 %2 %3 %4 %5 %6 %7 %8 %9
+py -O -m umbra.%module% %1 %2 %3 %4 %5 %6 %7 %8 %9
