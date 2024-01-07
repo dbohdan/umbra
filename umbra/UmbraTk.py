@@ -230,9 +230,9 @@ class UmbraTk(Umbra.Umbra):
             self.canvas.create_rectangle(sx, sy, sx + 20, sy + 20, outline="#663333")
 
     def __showMapAs3D(self, map, facing):
-        self.timing_sky_start = time.clock()
+        self.timing_sky_start = time.time()
         self.__showSky(facing)
-        self.timing_sky_end = time.clock()
+        self.timing_sky_end = time.time()
 
         size = Global.VIEWSIZE
         center = Global.VIEWDIST
