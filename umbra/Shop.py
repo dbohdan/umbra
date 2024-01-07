@@ -3,7 +3,7 @@ from . import Global, util
 import copy, string
 
 # Global.SHOP_* := [ (item template, cost, quantityDice), ]
-CATALOG={}
+CATALOG = {}
 
 # melee
 ITEM_switchblade = "switchblade"
@@ -83,6 +83,7 @@ ITEM_flashlight = "flashlight"
 ITEM_can_of_food = "can of food"
 ITEM_box_of_chocolates = "box of chocolates"
 
+
 def addToShop(item, cost, quantityDice):
     shoptype = item.shoptype
     if shoptype in CATALOG:
@@ -90,19 +91,22 @@ def addToShop(item, cost, quantityDice):
     else:
         products = []
         CATALOG[shoptype] = products
-    item.setCost( cost )
-    products.append( (item, cost, quantityDice) )
+    item.setCost(cost)
+    products.append((item, cost, quantityDice))
 
     if isinstance(item, Ranged.Ranged):
         ammoType = item.name.split()[0]
-        ammo = Ammo.Ammo("%s ammo"%ammoType, "ammo", ammoType,
-            item.ammoCapacity)
-        ammo.setCost( cost//10 )
+        ammo = Ammo.Ammo("%s ammo" % ammoType, "ammo", ammoType, item.ammoCapacity)
+        ammo.setCost(cost // 10)
         dice = quantityDice.split()
-        if len(dice) < 3: dice.append("0")
-        if len(dice) < 4: dice.append("4")
-        else: dice[3] = "4"
-        products.append( (ammo, cost//10, quantityDice) )
+        if len(dice) < 3:
+            dice.append("0")
+        if len(dice) < 4:
+            dice.append("4")
+        else:
+            dice[3] = "4"
+        products.append((ammo, cost // 10, quantityDice))
+
 
 def getShopItem(itemname):
     for shoptype in range(Global.NSHOPS):
@@ -111,89 +115,130 @@ def getShopItem(itemname):
                 return copy.deepcopy(line[0])
     return None
 
+
 def fillShopTypes():
     item = Melee.Melee(ITEM_switchblade, "sword")
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 4"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 4"),
+    )
     addToShop(item, 10, "1 6 1")
 
     item = Melee.Melee(ITEM_machete, "sword")
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 6"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 6"),
+    )
     addToShop(item, 50, "1 3 -1")
 
     item = Melee.Melee(ITEM_replica_katana, "sword")
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 8"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 8"),
+    )
     addToShop(item, 250, "1 3 -1")
 
     item = Melee.Melee(ITEM_replica_claymore, "sword")
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 10"),)
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 10"),
+    )
     addToShop(item, 500, "1 3 -1")
 
     item = Melee.Melee(ITEM_chainsaw, "sword")
-    item.effect = Script.Script((Script.T, Script.DMG, Global.Wounds, "1 6 6"),)
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 6 6"),
+    )
     addToShop(item, 1000, "1 3 -1")
 
-    #________________________________________
+    # ________________________________________
     item = Ranged.Ranged(ITEM_staple_gun, "gun", 3, 100, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 3"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 3"),
+    )
     addToShop(item, 50, "1 20 -10")
 
     item = Ranged.Ranged(ITEM_5mm_derringer, "gun", 5, 2, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 4"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 4"),
+    )
     addToShop(item, 100, "1 6 -3")
 
     item = Ranged.Ranged(ITEM_38_revolver, "gun", 10, 6, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 6"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 6"),
+    )
     addToShop(item, 250, "1 6 -4")
 
     item = Ranged.Ranged(ITEM_9mm_auto_pistol, "gun", 12, 17, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 8"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 8"),
+    )
     addToShop(item, 500, "1 8 -6")
 
     item = Ranged.Ranged(ITEM_45_auto_pistol, "gun", 8, 6, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 8 2"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 8 2"),
+    )
     addToShop(item, 600, "1 8 -6")
 
     item = Ranged.Ranged(ITEM_10mm_auto_pistol, "gun", 9, 10, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 10"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 10"),
+    )
     addToShop(item, 750, "1 10 -8")
 
     item = Ranged.Ranged(ITEM_44_magnum, "gun", 6, 6, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 12"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 12"),
+    )
     addToShop(item, 900, "1 20 -19")
 
     item = Ranged.Ranged(ITEM_Uzi_9mm_submachinegun, "gun", 10, 30, 3)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "2 6"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "2 6"),
+    )
     addToShop(item, 1500, "1 20 -19")
 
     item = Ranged.Ranged(ITEM_20_gauge_shotgun, "gun", 15, 14, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "2 4"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "2 4"),
+    )
     addToShop(item, 600, "1 8 -6")
 
     item = Ranged.Ranged(ITEM_12_gauge_shotgun, "gun", 12, 5, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "2 8"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "2 8"),
+    )
     addToShop(item, 1400, "1 8 -7")
 
     item = Ranged.Ranged(ITEM_10_gauge_double_barrel_shotgun, "gun", 8, 2, 2)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "2 10"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "2 10"),
+    )
     addToShop(item, 1600, "1 10 -9")
 
     item = Ranged.Ranged(ITEM_22_hunting_rifle, "gun", 32, 14, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 4"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 4"),
+    )
     addToShop(item, 800, "1 10 -8")
 
     item = Ranged.Ranged(ITEM_30_30_hunting_rifle, "gun", 64, 8, 1)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "1 10 2"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "1 10 2"),
+    )
     addToShop(item, 2000, "1 10 -9")
 
     item = Ranged.Ranged(ITEM_7_62mm_assault_rifle, "gun", 64, 10, 2)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "4 6"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "4 6"),
+    )
     addToShop(item, 2400, "1 20 -19")
 
     item = Ranged.Ranged(ITEM_5_56mm_assault_rifle, "gun", 64, 30, 3)
-    item.effect = Script.Script( (Script.T, Script.DMG, Global.Wounds, "3 6"), )
+    item.effect = Script.Script(
+        (Script.T, Script.DMG, Global.Wounds, "3 6"),
+    )
     addToShop(item, 3200, "1 20 -19")
 
-    #________________________________________
+    # ________________________________________
     item = Defense.Defense(ITEM_leather_jacket, "sword", Equip.T_Armor, 1)
     addToShop(item, 150, "1 4 -1")
 
@@ -257,39 +302,63 @@ def fillShopTypes():
     item = Defense.Defense(ITEM_riot_shield, "sword", Equip.T_Shield, 4)
     addToShop(item, 400, "1 6")
 
-    #________________________________________
+    # ________________________________________
     item = Equip.Equip(ITEM_gold_ring, "sword", Equip.T_Ring, Global.SHOP_Pawn_Shop)
-    item.readyEffect = Script.Script( (Script.T, Script.STAT, Global.Presence, "0 0 1"), )
-    item.unreadyEffect = Script.Script( (Script.T, Script.STAT, Global.Presence, "0 0 -1"), )
+    item.readyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Presence, "0 0 1"),
+    )
+    item.unreadyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Presence, "0 0 -1"),
+    )
     addToShop(item, 500, "1 6 -1")
 
-    item = Equip.Equip(ITEM_digital_watch, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop)
-    item.readyEffect = Script.Script( (Script.T, Script.STAT, Global.Mind, "0 0 1"), )
-    item.unreadyEffect = Script.Script( (Script.T, Script.STAT, Global.Mind, "0 0 -1"), )
+    item = Equip.Equip(
+        ITEM_digital_watch, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop
+    )
+    item.readyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Mind, "0 0 1"),
+    )
+    item.unreadyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Mind, "0 0 -1"),
+    )
     addToShop(item, 30, "1 6 0")
 
-    item = Equip.Equip(ITEM_mirrorshades, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop)
-    item.readyEffect = Script.Script( (Script.T, Script.STAT, Global.Presence, "0 0 2"), )
-    item.unreadyEffect = Script.Script( (Script.T, Script.STAT, Global.Presence, "0 0 -2"), )
+    item = Equip.Equip(
+        ITEM_mirrorshades, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop
+    )
+    item.readyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Presence, "0 0 2"),
+    )
+    item.unreadyEffect = Script.Script(
+        (Script.T, Script.STAT, Global.Presence, "0 0 -2"),
+    )
     addToShop(item, 20, "1 10 0")
 
-    #________________________________________
+    # ________________________________________
     item = Loot.Loot(ITEM_can_of_food, "food", Global.SHOP_General)
     item.oneshot = 1
-    item.effect = Script.Script( (Script.T, Script.STAT, Global.Wounds, "-2 2 1"),
-        (Script.T, Script.STAT, Global.Fatigue, "-2 2 1"), )
+    item.effect = Script.Script(
+        (Script.T, Script.STAT, Global.Wounds, "-2 2 1"),
+        (Script.T, Script.STAT, Global.Fatigue, "-2 2 1"),
+    )
     addToShop(item, 5, "2 20 -5")
 
     item = Loot.Loot(ITEM_box_of_chocolates, "food", Global.SHOP_General)
     item.oneshot = 1
-    item.effect = Script.Script( (Script.T, Script.STAT, Global.Wounds, "-2 3 1"),
-        (Script.T, Script.STAT, Global.Fatigue, "-2 3 1"), )
+    item.effect = Script.Script(
+        (Script.T, Script.STAT, Global.Wounds, "-2 3 1"),
+        (Script.T, Script.STAT, Global.Fatigue, "-2 3 1"),
+    )
     addToShop(item, 100, "1 8 -4")
 
     item = Equip.Equip(ITEM_flashlight, "sword", Equip.T_Accessory, Global.SHOP_General)
-    item.readyEffect = Script.Script( (Script.T, Script.LIGHT, 4), )
-    item.unreadyEffect = Script.Script( (Script.T, Script.LIGHT, 0), )
+    item.readyEffect = Script.Script(
+        (Script.T, Script.LIGHT, 4),
+    )
+    item.unreadyEffect = Script.Script(
+        (Script.T, Script.LIGHT, 0),
+    )
     addToShop(item, 50, "1 6 -2")
 
-fillShopTypes()
 
+fillShopTypes()

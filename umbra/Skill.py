@@ -1,13 +1,14 @@
 from . import Door, Spell
 from . import Global, util
 
-SKILLS={}
-SKILL_NAMES=[]
+SKILLS = {}
+SKILL_NAMES = []
+
 
 class Skill:
-    #name=String
-    #stat=Int
-    #use=Method
+    # name=String
+    # stat=Int
+    # use=Method
     def __init__(self, name, stat):
         self.name = name
         self.stat = stat
@@ -20,9 +21,11 @@ class Skill:
         SKILL_NAMES.append(name)
 
     def cost(self, who, st, amount):
-        if amount == 0: return
-        who.message("Using %s costs you %d %s" % (self.name, amount,
-                Global.STAT_NAMES[st]) )
+        if amount == 0:
+            return
+        who.message(
+            "Using %s costs you %d %s" % (self.name, amount, Global.STAT_NAMES[st])
+        )
         who.stat[st] += amount
         who.checkStatus()
 
@@ -30,7 +33,8 @@ class Skill:
         level = Global.umbra.game.getLevel()
         award = (who.level + level.levelnum) * 5
         f = who.facing
-        x1 = who.x() + Global.DX[f]; y1 = who.y() + Global.DY[f]
+        x1 = who.x() + Global.DX[f]
+        y1 = who.y() + Global.DY[f]
         door = level.getDoor(x1, y1)
         if not door:
             who.message("Try it in front of a door...")
@@ -74,42 +78,50 @@ class Skill:
             if not who.player:
                 who.message("You can't decide which spell to use!")
                 return Global.NOREDRAW
-            prompts = ["Cancel", ]
+            prompts = [
+                "Cancel",
+            ]
             for spell in who.spells:
                 prompts.append(spell)
-            opt = Global.umbra.menu("%s: Cast which spell?"%who.name, prompts)
-            if opt == 0: return Global.NOREDRAW
-            spell = Spell.getSpell( who.spells[opt-1] )
+            opt = Global.umbra.menu("%s: Cast which spell?" % who.name, prompts)
+            if opt == 0:
+                return Global.NOREDRAW
+            spell = Spell.getSpell(who.spells[opt - 1])
         if who.taskSkill(self, spell.difficulty) < 0:
-            self.cost(who, Global.Burnout, spell.cost//2)
+            self.cost(who, Global.Burnout, spell.cost // 2)
             who.message("You fail to get the spell off!")
             return Global.NOREDRAW
         if spell.targeted:
-            target = Global.umbra.selectTarget(who, Global.TARGET_Ranged,
-                    "%s: Target for %s" % (who.name, spell.name),
-                    rng=Global.VIEWDIST )
+            target = Global.umbra.selectTarget(
+                who,
+                Global.TARGET_Ranged,
+                "%s: Target for %s" % (who.name, spell.name),
+                rng=Global.VIEWDIST,
+            )
             if target is None:
                 return Global.NOREDRAW
         else:
             target = None
         text = "You cast %s" % spell.name
-        if target: text = "%s at %s" % (text, target.name)
+        if target:
+            text = "%s at %s" % (text, target.name)
         who.message(text)
         self.cost(who, Global.Burnout, spell.cost)
         spell.use(who, target)
         return Global.REDRAW
 
+
 def getSkill(name):
     return SKILLS[name]
 
-Melee=Skill("Melee", Global.Body)
-Ranged=Skill("Ranged", Global.Speed)
-Dodge=Skill("Dodge", Global.Speed)
-Locksmith=Skill("Locksmith", Global.Speed)
-Repair=Skill("Repair", Global.Mind)
-Science=Skill("Science", Global.Mind)
-Magic=Skill("Magic", Global.Mind)
-Archaeology=Skill("Archaeology", Global.Mind)
 
-NSKILLS=len(SKILLS)
+Melee = Skill("Melee", Global.Body)
+Ranged = Skill("Ranged", Global.Speed)
+Dodge = Skill("Dodge", Global.Speed)
+Locksmith = Skill("Locksmith", Global.Speed)
+Repair = Skill("Repair", Global.Mind)
+Science = Skill("Science", Global.Mind)
+Magic = Skill("Magic", Global.Mind)
+Archaeology = Skill("Archaeology", Global.Mind)
 
+NSKILLS = len(SKILLS)

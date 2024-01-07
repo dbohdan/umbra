@@ -2,6 +2,7 @@ from . import Thing
 from . import Global, util
 import os
 
+
 class Window(Thing.Thing):
     def __init__(self, facing):
         """facing is the direction out, away from the building interior."""
@@ -10,4 +11,3 @@ class Window(Thing.Thing):
 
     def isBlocking(self, who):
         return 1
-

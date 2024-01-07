@@ -1,5 +1,6 @@
 from . import Item, Loot
 
+
 class Cash(Loot.Loot):
     def __init__(self, amount):
         Loot.Loot.__init__(self, "cash", "cash")
@@ -12,4 +13,3 @@ class Cash(Loot.Loot):
     def setCost(self, amount):
         self.name = "$%d cash" % amount
         Loot.Loot.setCost(self, amount)
-
