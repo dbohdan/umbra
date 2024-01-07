@@ -1,1 +1,2 @@
-python -O UmbraTk.py $*
+#! /bin/sh
+python3 -O -m umbra.UmbraTk "$@"

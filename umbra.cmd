@@ -1,1 +1,1 @@
-@python -O UmbraTk.py %1 %2 %3 %4 %5 %6 %7 %8 %9
+@python3 -O -m umbra.UmbraTk %*
