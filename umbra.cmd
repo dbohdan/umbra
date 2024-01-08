@@ -2,11 +2,11 @@
 
 set module=UmbraTk
 
-if "%1"=="/t" (
+if "%1"=="-text" (
    set module=UmbraText
    shift
 )
-if "%1"=="/text" (
+if "%1"=="--text" (
    set module=UmbraText
    shift
 )

@@ -7,8 +7,13 @@ class UmbraText(Umbra.Umbra):
     def __init__(self):
         print(Global.TITLE)
         print(Global.COPYRIGHT)
-        Umbra.Umbra.__init__(self)
-        Global.VISICALC = 1
+
+        parser = Umbra.cli()
+        args = parser.parse_args()
+
+        Umbra.Umbra.__init__(self, args)
+
+        Global.VISICALC = True
 
     def alert(self, title, msg, type=Global.ALERT_WARNING):
         print(title)

@@ -1,17 +1,17 @@
 # debugging flags
-DEBUG = 0
-FASTDAY = 0
+DEBUG = False
+FASTDAY = False
 TESTCHAR = 0  # 1=lots of cash & -hack equip, 2=only starting cash
-TIMING = 0
-SHOWWORLD = 0
-COMBAT_DEBUG = 0
-LIGHT_DEBUG = 0
-BRAIN_DEBUG = 0
-GZIP = 1
+TIMING = False
+SHOWWORLD = False
+COMBAT_DEBUG = False
+LIGHT_DEBUG = False
+BRAIN_DEBUG = False
+GZIP = True
 GZIP_LEVEL = 9
-LIGHT = 1  # use light levels?
-LIGHT_LOS = 1  # check LOS on light? (VERY slow!)
-VISICALC = 0  # use visicalc to determine which grids to draw?
+LIGHT = True  # use light levels?
+LIGHT_LOS = True  # check LOS on light? (VERY slow!)
+VISICALC = False  # use visicalc to determine which grids to draw?
 START_DEBUG = 0  # 0=town, 1=near temple, 2=near altar, 3=near ruins
 
 VERSION = "0.11.1"
@@ -27,7 +27,7 @@ umbra = None
 WORLDSIZE = 64
 LEVELSIZE = 64
 
-HACK = 0
+HACK = False
 # start in town
 START_LOC = (WORLDSIZE // 2, WORLDSIZE // 2, 0, LEVELSIZE - 8, LEVELSIZE // 2)
 # start outside mountains temple

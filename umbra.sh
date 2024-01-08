@@ -12,14 +12,14 @@ fi
 log=0
 module=UmbraTk
 
-while echo "${1:-}" | grep -E '^(-l|--log|-t|--text)$' > /dev/null; do
-    if [ "${1:-}" = -t ] || [ "${1:-}" = --text ]; then
-        module=UmbraText
+while echo "${1:-}" | grep -E '^(-?-log|-?-text)$' > /dev/null; do
+    if [ "${1:-}" = -log ] || [ "${1:-}" = --log ]; then
+        log=1
         shift
     fi
 
-    if [ "${1:-}" = -l ] || [ "${1:-}" = --log ]; then
-        log=1
+    if [ "${1:-}" = -text ] || [ "${1:-}" = --text ]; then
+        module=UmbraText
         shift
     fi
 done

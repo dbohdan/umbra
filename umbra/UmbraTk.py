@@ -7,7 +7,7 @@ import os, string, sys, time, types
 STATUS_WIDTH = 64
 CHAR_STATUS_WIDTH = 220
 DEFAULT_SIZE = 480
-FOG = 0
+FOG = False
 
 XGEOM = 0
 YGEOM = 0
@@ -16,18 +16,25 @@ YGEOM = 0
 # ________________________________________
 class UmbraTk(Umbra.Umbra):
     def __init__(self, root):
-        i = util.indexOf("-fog", sys.argv)
-        if i >= 0:
-            global FOG
-            FOG = 1
-            sys.argv.pop(i)
+        parser = Umbra.cli()
 
-        self.size = DEFAULT_SIZE
-        i = util.indexOf("-size", sys.argv)
-        if i >= 0 and i < len(sys.argv) - 1:
-            self.size = int(sys.argv[i + 1])
-            sys.argv.pop(i)
-            sys.argv.pop(i)
+        parser.add_argument("-fog", "--fog", action="store_true", help="enable fog")
+
+        parser.add_argument(
+            "-size",
+            "--size",
+            default=DEFAULT_SIZE,
+            metavar="<pixels>",
+            type=int,
+            help="set the view window size (default: %(default)d)",
+        )
+
+        args = parser.parse_args()
+
+        if args.fog:
+            global FOG
+            FOG = True
+        self.size = args.size
 
         self.dialog_geometry = "+%d+%d" % (XGEOM + self.size, YGEOM)
 
@@ -154,7 +161,7 @@ class UmbraTk(Umbra.Umbra):
 
         self.acceptMainMenu = 0
 
-        Umbra.Umbra.__init__(self)
+        Umbra.Umbra.__init__(self, args)
 
     def __charButton(self, event):
         y = event.y
@@ -855,12 +862,6 @@ class UmbraTk(Umbra.Umbra):
             self.status[1]["text"] = oldtext
             self.status[2]["text"] = util.foldLines(text, STATUS_WIDTH)
         self.root.update_idletasks()
-
-    def usage(self):
-        self.showText(
-            Global.TITLE,
-            "Usage: %s [-viewdist <viewdist>] [-fog] [-size <pixels>]" % sys.argv[0],
-        )
 
 
 # ________________________________________

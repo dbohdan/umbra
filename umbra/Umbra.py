@@ -7,7 +7,7 @@
 from . import Entity, Game, Equip, Item, Cash, Level, Skill, Vehicle
 from . import Sector, Terrain
 from . import Global, util
-import glob, os, shutil, string, sys, time
+import argparse, glob, os, shutil, string, sys, time
 
 G_New = 0
 G_Load = 1
@@ -99,32 +99,76 @@ MAIN_MENU_KEYS = (
 )
 
 
+def cli():
+    parser = argparse.ArgumentParser(allow_abbrev=False)
+
+    parser.add_argument(
+        "-viewdist",
+        "--view-dist",
+        default=8,
+        metavar="<squares>",
+        type=int,
+        help="set the view distance in grid squares (default: %(default)d)",
+    )
+
+    parser.add_argument(
+        "-hack",
+        "--hack",
+        action="store_true",
+        help="start just outside a temple with some minimal equipment",
+    )
+
+    parser.add_argument(
+        "-timing", "--timing", action="store_true", help="enable timing debug mode"
+    )
+
+    parser.add_argument(
+        "-nolight",
+        "--no-light",
+        action="store_false",
+        dest="light",
+        help="disable lighting",
+    )
+
+    parser.add_argument(
+        "-nolightlos",
+        "--no-light-los",
+        action="store_false",
+        dest="light_los",
+        help="disable line-of-sight calculation for lighting",
+    )
+
+    parser.add_argument(
+        "-visible",
+        "--visible",
+        action="store_true",
+        help="enable visibility calculation",
+    )
+
+    parser.add_argument(
+        "-nodebug",
+        "--no-debug",
+        action="store_false",
+        default=Global.DEBUG,
+        dest="debug",
+        help="disable debug mode",
+    )
+
+    return parser
+
+
 class Umbra:
     # game=Game
-    def __init__(self):
+    def __init__(self, args):
         Global.umbra = self
-        i = 1
-        argc = len(sys.argv)
-        while i < argc:
-            if sys.argv[i] == "-viewdist" and i + 1 < argc:
-                Global.setViewDist(int(sys.argv[i + 1]))
-                i += 1
-            elif sys.argv[i] == "-hack":
-                Global.HACK = 1
-            elif sys.argv[i] == "-timing":
-                Global.TIMING = 1
-            elif sys.argv[i] == "-nolight":
-                Global.LIGHT = 0
-            elif sys.argv[i] == "-nolightlos":
-                Global.LIGHT_LOS = 0
-            elif sys.argv[i] == "-visible":
-                Global.VISICALC = 1
-            elif Global.DEBUG and sys.argv[i] == "-nodebug":
-                Global.DEBUG = 0
-            else:
-                self.usage()
-                self.quit(1)
-            i += 1
+
+        Global.setViewDist(args.view_dist)
+        Global.HACK = args.hack
+        Global.TIMING = args.timing
+        Global.LIGHT = args.light
+        Global.LIGHT_LOS = args.light_los
+        Global.VISICALC = args.visible
+        Global.DEBUG = args.debug
 
         self.game = None
         self.gameMenu()
@@ -198,10 +242,6 @@ class Umbra:
         mainMenu() with the index of the chosen command from MAIN_MENU every
         time a command is chosen."""
         pass
-
-    def usage(self):
-        """Displays command-line options"""
-        self.showText(Global.TITLE, "Usage: %s [-viewdist <viewdist>]" % sys.argv[0])
 
     # ________________________________________
     def gameMenu(self):
@@ -1016,7 +1056,7 @@ class Umbra:
                         type=Global.ALERT_WARNING,
                     )
                 if opt == T_Hack:
-                    Global.HACK = 1
+                    Global.HACK = True
                 self.game.enterWorld()
                 return
             elif opt == T_Quit:

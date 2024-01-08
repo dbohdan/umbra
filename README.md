@@ -26,7 +26,7 @@ Python 3.8 or later.
 Earlier versions of Python 3 may work but are not supported.
 GUI is optional.
 Unusually for a game,
-_Umbra_ can run with either first-person [tkinter](https://docs.python.org/3/library/tkinter.html) graphics
+_Umbra_ can run either with first-person [Tkinter](https://docs.python.org/3/library/tkinter.html) graphics
 or in text mode.
 
 This port has been lightly tested on
@@ -41,7 +41,7 @@ This port has been lightly tested on
 1. Install Python 3.8 or later.
 2. Clone this repository.
 3. On \*BSD, Linux, and Mac, run `umbra.sh` to play in graphics mode; on Windows, run `umbra.cmd`.
-Run `umbra.sh --text` or `umbra.cmd /text` respectively for text mode.
+Run `umbra.sh --text` or `umbra.cmd --text` respectively for text mode.
 
 ## Documentation
 
