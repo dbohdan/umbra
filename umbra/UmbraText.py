@@ -8,8 +8,7 @@ class UmbraText(Umbra.Umbra):
         print(Global.TITLE)
         print(Global.COPYRIGHT)
 
-        parser = Umbra.cli()
-        args = parser.parse_args()
+        args = Umbra.cli().parse_args()
 
         Umbra.Umbra.__init__(self, args)
 
@@ -66,9 +65,7 @@ class UmbraText(Umbra.Umbra):
         print(title)
         if banner:
             print(banner)
-        menu = []
-        for i in range(len(prompts)):
-            menu.append("[%s] %s" % (keys[i], prompts[i]))
+        menu = ["[%s] %s" % (keys[i], prompts[i]) for i in range(len(prompts))]
         util.print2cols(menu)
         while 1:
             line = input("> ")
@@ -154,15 +151,15 @@ class UmbraText(Umbra.Umbra):
                     )
                 text = "%s\n" % text
         print(text)
-        keys = []
-        for key in util.sort(list(desc.keys())):
-            keys.append("%s=%s" % (key, desc[key]))
-        for key in util.sort(list(mapdesc.keys())):
-            keys.append("%s=%s" % (key, mapdesc[key]))
+
+        keys = ["%s=%s" % (key, desc[key]) for key in util.sort(list(desc.keys()))] + [
+            "%s=%s" % (key, mapdesc[key]) for key in util.sort(list(mapdesc.keys()))
+        ]
+
         util.print2cols(keys)
 
     def __showGrid(self, text, level, x0, y0, x, y, grid, desc, mapdesc):
-        center = x == Global.VIEWDIST and y == Global.VIEWDIST
+        center = x == y == Global.VIEWDIST
         if grid[0] == None or not grid[3]:
             here = "    "
         elif grid[2] <= 0 and not center:

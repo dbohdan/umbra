@@ -110,7 +110,7 @@ class Canvas3D(Canvas):
         self, side, nx, ny, fill, outline, altitude=-1, height=2, stipple=None
     ):
         # don't draw things that should be behind you!
-        if side == Global.Side_Near and nx == 0 and ny == 0:
+        if side == Global.Side_Near and nx == ny == 0:
             return
         nx0 = nx * 2 - 1
         nx1 = nx * 2 + 1

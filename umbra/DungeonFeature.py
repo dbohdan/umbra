@@ -196,7 +196,7 @@ class DungeonSemiOpenRoom(DungeonAbstractRoom):
 class DungeonDoorHall(DungeonFeature):
     def __init__(self, dungeon, xloc, yloc, facing):
         DungeonFeature.__init__(self, dungeon, xloc, yloc, facing)
-        if facing == Global.North or facing == Global.South:
+        if facing in (Global.North, Global.South):
             self.width = 1
             self.height = util.d(2, 3) + 2
         else:
@@ -217,7 +217,7 @@ class DungeonDoorHall(DungeonFeature):
 class DungeonOpenHall(DungeonFeature):
     def __init__(self, dungeon, xloc, yloc, facing):
         DungeonFeature.__init__(self, dungeon, xloc, yloc, facing)
-        if facing == Global.North or facing == Global.South:
+        if facing in (Global.North, Global.South):
             self.width = 1
             self.height = util.d(1, 6) + 2
         else:

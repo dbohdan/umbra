@@ -16,11 +16,11 @@ Cannibalism = Script.Script(
 
 
 def getFriends(group):
-    return FRIENDS.get(group, None)
+    return FRIENDS.get(group)
 
 
 def getSpeciesData(species, key):
-    data = SPECIES_DATA.get(species, None)
+    data = SPECIES_DATA.get(species)
     if not data:
         return None
     return data.get(key, None)

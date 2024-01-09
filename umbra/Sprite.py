@@ -41,7 +41,7 @@ class Sprite:
         self.nfacings = nfacings
         self.nposes = nposes
         filename = os.path.join("db", "model", "%s.mod" % name)
-        file = open(filename, "r")
+        file = open(filename)
         lines = file.readlines()
         file.close()
         self.__parseCommands(lines)
@@ -188,8 +188,7 @@ class Sprite:
     def light(self, color, light):
         if LIGHT and light != 10:
             return util.colorTransform(color, scale=light)
-        else:
-            return color
+        return color
 
     def draw(self, thing, canvas, nx, ny, facing, light, spritefacing):
         iline = 0

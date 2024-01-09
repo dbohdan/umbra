@@ -71,7 +71,7 @@ def colorTransform(color, scale=None, delta=None):
     if len(color) == 0:
         return color
     set = (color, scale, delta)
-    cached = COLOR_CACHE.get(set, None)
+    cached = COLOR_CACHE.get(set)
     if cached:
         return cached
         #    if len(color) != 7: raise ValueError, "Invalid color '%s'!" % color
@@ -275,7 +275,7 @@ def isList(x):
 
 
 def isNumber(x):
-    return isinstance(x, int) or isinstance(x, float)
+    return isinstance(x, (int, float))
 
 
 def isSequence(x):
@@ -304,9 +304,7 @@ def makeArray(dims, value=None):
         ] * n
     else:
         sub = dims[1:]
-        a = []
-        for i in range(n):
-            a.append(makeArray(sub, value))
+        a = [makeArray(sub, value) for i in range(n)]
     return a
 
 
@@ -520,9 +518,7 @@ def toString(obj):
     if obj is None:
         return "None"
     if isSequence(obj):
-        strlist = []
-        for i in obj:
-            strlist.append(toString(i))
+        strlist = [toString(i) for i in obj]
         if isList(obj):
             return "[" + (", ".join(strlist)) + "]"
         else:

@@ -193,9 +193,8 @@ def __doMove(self, level, movedir):
 def __getFoeDirs(self, foes):
     x0 = self.x()
     y0 = self.y()
-    dirdist = []
-    for d in range(Global.NDIRS):
-        dirdist.append((1024, d, None))
+    dirdist = [(1024, d, None) for d in range(Global.NDIRS)]
+
     for target in foes:
         xdist = target.x() - x0
         ydist = target.y() - y0
@@ -203,7 +202,7 @@ def __getFoeDirs(self, foes):
         axdist = abs(xdist)
         aydist = abs(ydist)
         # no dirs to add?
-        if axdist == 0 and aydist == 0:
+        if axdist == aydist == 0:
             continue
         # only one dir to add?
         if axdist == 0:
@@ -270,8 +269,7 @@ def __getFriendsAndFoes(self, level):
         def getName(i):
             if i is None:
                 return None
-            else:
-                return i.name
+            return i.name
 
         print(
             "friends=%s, foes=%s, victims=%s"
@@ -315,7 +313,7 @@ def __gossip(self, level, friends):
         if self.player or who.player:
             continue
         # or summoned critters
-        if self.species == Bestiary.S_Summoned or who.species == Bestiary.S_Summoned:
+        if Bestiary.S_Summoned in (self.species, who.species):
             continue
         if not __adjacent(self, who):
             continue
@@ -359,10 +357,12 @@ def __tryRanged(self, turn, level, foes):
     gun = self.equip[Equip.POS_Ranged]
     if not gun:
         return 0
-    targets = []
-    for foe in foes:
-        if level.clearLOS(self.x(), self.y(), foe.x(), foe.y(), gun.range):
-            targets.append(foe)
+
+    targets = [
+        foe
+        for foe in foes
+        if level.clearLOS(self.x(), self.y(), foe.x(), foe.y(), gun.range)
+    ]
     if targets:
         self.rangedAttack(random.choice(targets))
         return RES_Ranged
@@ -377,10 +377,7 @@ def __tryGetStuff(self, turn, level):
     stuff = level.getStuff(x, y)
     if not stuff:
         return 0
-    getme = []
-    for item in stuff:
-        if isinstance(item, Item.Item) and item.cost() > 0:
-            getme.append(item)
+    getme = [item for item in stuff if isinstance(item, Item.Item) and item.cost() > 0]
     if not getme:
         return 0
     for item in getme:

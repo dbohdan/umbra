@@ -162,7 +162,7 @@ class Temple:
                 lvl1, util.d(5, 10), CULTIST_ENCOUNTERS, Terrain.ENC_TERRAIN_INDOORS
             )
             # and a sanity-blasting black altar...
-            xaltar, yaltar = self.findClearLoc(lvl1, radius=2)
+            xaltar, yaltar = self.findClearLoc(lvl1)
             lvl1.setTerrain(xaltar, yaltar, Terrain.Altar)
             lamp = Lamp.Lamp(5, Lamp.S_Always_On)
             lamp.name = "a blood-stained altar"

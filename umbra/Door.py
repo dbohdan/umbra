@@ -93,8 +93,9 @@ class Door(Thing.Thing):
             return
         if DEBUG:
             print(self)
-        otherlevel = Global.umbra.game.getLevel(self.linkedTo[2])
-        door = otherlevel.getDoor(self.linkedTo[0], self.linkedTo[1])
+        door = Global.umbra.game.getLevel(self.linkedTo[2]).getDoor(
+            self.linkedTo[0], self.linkedTo[1]
+        )
         if DEBUG:
             print("    linkedTo door=%s" % door)
         if door:

@@ -255,11 +255,7 @@ class Level:
         stuff = self.getStuff(x, y)
         if not stuff:
             return None
-        entities = []
-        for item in stuff:
-            if isinstance(item, Entity.Entity):
-                entities.append(item)
-        return entities
+        return [item for item in stuff if isinstance(item, Entity.Entity)]
 
     def getLight(self, x, y):
         stuff = self.getStuff(x, y)
@@ -314,11 +310,7 @@ class Level:
         stuff = self.getStuff(x, y)
         if not stuff:
             return None
-        items = []
-        for item in stuff:
-            if not isinstance(item, Entity.Entity):
-                items.append(item)
-        return items
+        return [item for item in stuff if not isinstance(item, Entity.Entity)]
 
     def inBounds(self, x, y):
         return x >= 0 and x < SIZE and y >= 0 and y < SIZE

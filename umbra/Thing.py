@@ -44,8 +44,7 @@ class Thing:
     def light(self, color, light):
         if Global.LIGHT and light < 10:
             return util.colorTransform(color, scale=light)
-        else:
-            return color
+        return color
 
     def message(self, msg):
         pass

@@ -171,7 +171,7 @@ class Game:
             self.eclipse = 0
             if ihour > 5 and ihour < 20:
                 self.light_level = Global.LIGHT_DAY
-            elif ihour == 5 or ihour == 19:
+            elif ihour in (5, 19):
                 self.light_level = Global.LIGHT_TWILIGHT
             else:
                 self.light_level = Global.LIGHT_NIGHT
@@ -607,16 +607,10 @@ class Game:
         self.tavern.append(who)
 
     def listPartyNames(self):
-        names = []
-        for c in self.party:
-            names.append(c.name)
-        return names
+        return [c.name for c in self.party]
 
     def listTavernNames(self):
-        names = []
-        for c in self.tavern:
-            names.append(c.name)
-        return names
+        return [c.name for c in self.tavern]
 
     def loadSector(self, filename):
         self.sector = Sector.loadSector(filename)
@@ -1019,8 +1013,7 @@ def loadGame(dirname):
     sectorFilename = game.getSectorFilename(party_wx, party_wy)
     if not game.loadSector(sectorFilename):
         return None
-    level = game.getLevel(party_levelnum)
-    stuff = level.getEntities(party_x, party_y)
+    stuff = game.getLevel(party_levelnum).getEntities(party_x, party_y)
     if not stuff:
         Global.umbra.alert(
             "Load Game", "Could not locate party!", type=Global.ALERT_ERROR

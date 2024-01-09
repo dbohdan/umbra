@@ -104,7 +104,7 @@ class Town:
         level = sector.level[0]
         level1 = sector.level[1] = Level.Level(sector=sector, levelnum=1)
 
-        if sector.wx == Global.WORLDSIZE // 2 and sector.wy == Global.WORLDSIZE // 2:
+        if sector.wx == sector.wy == Global.WORLDSIZE // 2:
             self.startTown = 1
             self.enc_table = START_TOWN_ENCOUNTERS
         else:
@@ -396,7 +396,7 @@ class Town:
                 x2 = xdoor + DX[doorside]
                 y2 = ydoor + DY[doorside]
                 doorstep = level.getTerrain(x2, y2)
-                if doorstep == None or doorstep == Terrain.Road:
+                if doorstep is None or doorstep == Terrain.Road:
                     clear = 1
                     # try not to draw over any other doors
                     if not self.doorIsClear(level1, x2, y2):
@@ -425,8 +425,7 @@ class Town:
     def getShopType(self):
         if self.allshops:
             return self.allshops.pop(util.d(1, len(self.allshops)) - 1)
-        else:
-            return util.d(1, Global.NSHOPS) - 1
+        return util.d(1, Global.NSHOPS) - 1
 
     def makeBuilding(self, level, level1, x0, y0, w, h):
         category = util.d(1, 20)

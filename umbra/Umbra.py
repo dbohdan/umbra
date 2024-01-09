@@ -628,7 +628,6 @@ class Umbra:
                 d = Global.MOVE_CHARS.index(keys[opt])
                 x0 = util.minmax(x0 + Global.DX[d] * VIEW2, 0, mapsize - VIEW)
                 y0 = util.minmax(y0 + Global.DY[d] * VIEW2, 0, mapsize - VIEW)
-                continue
 
     def mainMove(self, dx, dy):
         rc = self.game.moveBy(dx, dy)
@@ -913,9 +912,7 @@ class Umbra:
         names = [
             "Cancel",
         ] + self.game.listPartyNames()
-        keys = []
-        for i in range(len(names)):
-            keys.append(str(i))
+        keys = [str(i) for i in range(len(names))]
         which = self.menu(title, names, keys)
         if which == 0:
             return None
@@ -1025,9 +1022,7 @@ class Umbra:
         names = [
             "Cancel",
         ] + self.game.listTavernNames()
-        keys = []
-        for i in range(len(names)):
-            keys.append(str(i))
+        keys = [str(i) for i in range(len(names))]
         which = self.menu(title, names, keys)
         if which == 0:
             return None
@@ -1048,12 +1043,11 @@ class Umbra:
                 self.tavernJoinParty()
             elif opt == T_Leave:
                 self.tavernLeaveParty()
-            elif opt == T_Start or opt == T_Hack:
+            elif opt in (T_Start, T_Hack):
                 if not self.game.party:
                     self.alert(
                         "Enter World",
                         "You need at least one character in your party!",
-                        type=Global.ALERT_WARNING,
                     )
                 if opt == T_Hack:
                     Global.HACK = True

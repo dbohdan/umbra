@@ -235,7 +235,7 @@ class Ruins(MapGenerator.MapGenerator):
             for y in range(y0 + 1, y1):
                 for x in range(x0 + 1, x1):
                     self.makeOneSkyscraperContent(sector, lvl, x, y)
-                    if x % 4 == 0 and y % 4 == 0:
+                    if x % 4 == y % 4 == 0:
                         lvl.addStuff(x, y, Lamp.Lamp(5, Lamp.S_On))
 
     def makeOneSkyscraperContent(self, sector, lvl, x, y):

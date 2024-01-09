@@ -215,7 +215,7 @@ class Entity(Thing.Thing):
         self.friendliness[target.name] = Global.F_Enmity
         if target.brain == Global.B_Random:
             target.brain = Global.B_Hunter
-        result = self.taskSkill(skill, 0)
+        result = self.taskSkill(skill)
         if Global.COMBAT_DEBUG:
             print("%s attacks %s" % (self.name, target.name))
             print("strike %d" % result)
@@ -224,7 +224,7 @@ class Entity(Thing.Thing):
             target.message("%s misses you!" % self.name)
             return
         # dodge
-        dodge = target.taskSkill(Skill.Dodge, 0)
+        dodge = target.taskSkill(Skill.Dodge)
         if Global.COMBAT_DEBUG:
             print("dodge %d" % dodge)
         if dodge >= result:
@@ -357,7 +357,7 @@ class Entity(Thing.Thing):
         return len(self.__items)
 
     def die(self, cause):
-        if self.player and (cause == "No Mind" or cause == "No Presence"):
+        if self.player and cause in ("No Mind", "No Presence"):
             if self.stat[Global.Presence] < 0:
                 self.autopsy = "%s goes mad!" % self.name
                 self.message("You go mad, and turn on your trusting comrades!")
@@ -368,7 +368,7 @@ class Entity(Thing.Thing):
             print(self)
 
     def draw(self, canvas, nx, ny, facing, light):
-        if self.player and nx == 0 and ny == 0:
+        if self.player and nx == ny == 0:
             return
         if self.isBurrowing():
             if util.d(1, 2) == 1:
@@ -484,9 +484,7 @@ class Entity(Thing.Thing):
             if self.equip[i]:
                 text = "%s%s: %s\n" % (text, Equip.POS_NAMES[i], self.equip[i].name)
         text = "%sItems:\t" % text
-        items = []
-        for item in self.__items:
-            items.append(item.name)
+        items = [item.name for item in self.__items]
         items.sort()
         textitems = []
         for i in range(len(items)):
@@ -929,7 +927,6 @@ class EntityDialog(OkayDialog.OkayDialog):
         self.top.bind("0", self.event)
 
         self.ok.focus_set()
-        return
 
     def __makeLabel(self, cont, text):
         return tkinter.Label(

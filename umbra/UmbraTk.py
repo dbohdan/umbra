@@ -172,8 +172,7 @@ class UmbraTk(Umbra.Umbra):
 
     def __makeMainButton(self, buttons, m, x, y, extrakey=None):
         key = Umbra.MAIN_MENU_KEYS[m]
-        text = "[%s]\n%s" % (key, Umbra.MAIN_MENU[m])
-        text = text.replace(" ", "\n")
+        text = ("[%s]\n%s" % (key, Umbra.MAIN_MENU[m])).replace(" ", "\n")
         b = Button(
             buttons,
             text=text,
@@ -370,9 +369,9 @@ class UmbraTk(Umbra.Umbra):
 
         if not eclipse and hour >= 5.0 and hour < 20.0:
             # fill the sky
-            if ihour == 5 or ihour == 19:
+            if ihour in (5, 19):
                 skyfill = "#ccbbee"
-            elif facing == sunfacing or sunfacing == -1:
+            elif sunfacing in (facing, -1):
                 skyfill = "#77aaff"
             elif facing == Global.turnBack(sunfacing):
                 skyfill = "#5588dd"
@@ -712,10 +711,9 @@ class UmbraTk(Umbra.Umbra):
     def input(self, title, prompt):
         if Global.DEBUG:
             print("input title=%s, prompt=%s" % (title, prompt))
-        dlg = OkayDialog.InputDialog(
+        return OkayDialog.InputDialog(
             self.root, title, self.dialog_geometry, prompts=(prompt,)
-        )
-        return dlg.getAnswer(0)
+        ).getAnswer(0)
 
     def menu(self, title, prompts, keys=None, banner=None):
         if Global.DEBUG:
@@ -734,16 +732,15 @@ class UmbraTk(Umbra.Umbra):
                 if i <= 25:
                     keys.append(chr(a + i))
                 else:
-                    keys.append("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"[i - 25])
-        dlg = OkayDialog.MenuDialog(
+                    keys.append(string.punctuation[i - 25])
+        rc = OkayDialog.MenuDialog(
             self.root,
             title,
             self.dialog_geometry,
             prompts=prompts,
             keys=keys,
             banner=banner,
-        )
-        rc = dlg.getSelected()
+        ).getSelected()
         #        self.showStatus("%s %s" % (title, prompts[rc]) )
         return rc
 

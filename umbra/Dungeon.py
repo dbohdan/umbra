@@ -195,7 +195,7 @@ class Dungeon:
             x1 = x + Global.DX[d]
             y1 = y + Global.DY[d]
             ter = self.level.getTerrain(x1, y1)
-            if ter == Terrain.Dungeon_Floor or ter == Floor:
+            if ter in (Terrain.Dungeon_Floor, Floor):
                 dirOpen[d] = 1
         if dirOpen.count(1) != 2:
             self.level.setTerrain(x, y, Floor)
