@@ -61,14 +61,16 @@ class UmbraTk(Umbra.Umbra):
         if os.name == "nt":
             self.__tinyfont = ("Courier", 8)
             self.__statusfont = ("Helvetica", 12)
-            self.__titlefont = ("Helvetica", 64)
+            self.__titlefont = ("Helvetica", 56)
+            self.__copyrightfont = ("Lucida", 10)
             self.__normalfont = ("Lucida", 10)
             self.__buttonfont = ("Courier", 8)
             self.__charfont = ("Courier", 10, "bold")
         else:
             self.__tinyfont = ("Lucida Typewriter", 8)
             self.__statusfont = ("Helvetica", 14)
-            self.__titlefont = ("Helvetica", 72)
+            self.__titlefont = ("Helvetica", 56)
+            self.__copyrightfont = ("Lucida", 10)
             self.__normalfont = ("Lucida", 12)
             self.__buttonfont = ("Lucida Typewriter", 10)
             self.__charfont = ("Courier", 12, "bold")
@@ -119,7 +121,7 @@ class UmbraTk(Umbra.Umbra):
             self.size // 2,
             self.size // 2,
             text=Global.COPYRIGHT,
-            font=self.__normalfont,
+            font=self.__copyrightfont,
             fill="#00ff00",
         )
         self.canvas.pack(side=TOP)
