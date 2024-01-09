@@ -1,7 +1,8 @@
-from tkinter import *
-import tkinter.messagebox
-from . import Global, util
 import os
+import tkinter.messagebox
+from tkinter import *
+
+from . import Global, util
 
 DIALOG_GEOMETRY = "+32+32"
 
@@ -104,11 +105,9 @@ class OkayDialog:
     def makeBody(self, body, args):
         """Override with your GUI construction to go in the body frame; any
         user-named constructor parameters are in args as a dictionary"""
-        pass
 
     def okay(self):
         """Called when a button is pressed, or when the window is closed."""
-        pass
 
     def title(self, title):
         self.top.title(title)
@@ -184,7 +183,11 @@ class MenuDialog(OkayDialog):
         else:
             scrollbar = 0
         self.list = Listbox(
-            body, width=MENU_WIDTH, height=height, selectmode=BROWSE, font=MENU_FONT
+            body,
+            width=MENU_WIDTH,
+            height=height,
+            selectmode=BROWSE,
+            font=MENU_FONT,
         )
         self.list.bind("<Key-Return>", self.event)
         self.list.bind("<Double-Button-1>", self.event)

@@ -1,6 +1,6 @@
-from . import Sprite, Thing
-from . import Global, util
 import os
+
+from . import Thing
 
 S_Off = 0
 S_On = 1

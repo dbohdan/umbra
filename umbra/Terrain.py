@@ -1,6 +1,6 @@
-from . import Sprite
-from . import Global, util
 import os
+
+from . import Global, Sprite, util
 
 TERRAINS = {}
 

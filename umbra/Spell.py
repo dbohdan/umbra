@@ -1,5 +1,4 @@
-from . import Bestiary, Entity, Script
-from . import Global, util
+from . import Bestiary, Entity, Global, Script, util
 
 SPELLS = {}
 SPELL_NAMES = []
@@ -40,7 +39,7 @@ class Spell:
         e.effects.append(
             Script.Script(
                 (Script.T, Script.STAT, Global.Wounds, "0 0 1"),
-            )
+            ),
         )
         return e
 

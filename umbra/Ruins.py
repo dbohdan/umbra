@@ -1,8 +1,19 @@
-from . import CALevel, MapGenerator, Terrain
-from . import Ammo, Cash, Door, Lamp, Level, Script, Skill
-from . import Bestiary, Shop
-from . import Global, util
-import copy, random
+import copy
+import random
+
+from . import (
+    Bestiary,
+    CALevel,
+    Cash,
+    Door,
+    Global,
+    Lamp,
+    Level,
+    MapGenerator,
+    Shop,
+    Terrain,
+    util,
+)
 
 DEBUG = 0
 
@@ -59,7 +70,11 @@ class Ruins(MapGenerator.MapGenerator):
         for lvlnum in range(1, NFLOORS):
             sector.level[lvlnum] = Level.Level(sector=sector, levelnum=lvlnum)
             sector.level[lvlnum].fillRectangle(
-                0, 0, SIZE - 1, SIZE - 1, Terrain.Dungeon_Wall
+                0,
+                0,
+                SIZE - 1,
+                SIZE - 1,
+                Terrain.Dungeon_Wall,
             )
         xstreets = STREETS  # self.makeStreets()
         ystreets = STREETS  # self.makeStreets()
@@ -171,7 +186,12 @@ class Ruins(MapGenerator.MapGenerator):
                 fup = lvlnum + 1
             if fup:
                 xstairs, ystairs, facing = self.findStairs(
-                    sector.level[lvlnum], sector.level[fup], x0, y0, x1, y1
+                    sector.level[lvlnum],
+                    sector.level[fup],
+                    x0,
+                    y0,
+                    x1,
+                    y1,
                 )
                 sector.makeStairsPair(
                     sector.level[lvlnum],

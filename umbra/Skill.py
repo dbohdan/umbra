@@ -1,5 +1,4 @@
-from . import Door, Spell
-from . import Global, util
+from . import Door, Global, Spell, util
 
 SKILLS = {}
 SKILL_NAMES = []
@@ -24,7 +23,7 @@ class Skill:
         if amount == 0:
             return
         who.message(
-            "Using %s costs you %d %s" % (self.name, amount, Global.STAT_NAMES[st])
+            "Using %s costs you %d %s" % (self.name, amount, Global.STAT_NAMES[st]),
         )
         who.stat[st] += amount
         who.checkStatus()

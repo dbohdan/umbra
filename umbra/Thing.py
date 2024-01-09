@@ -1,5 +1,4 @@
-from . import Sprite
-from . import Global, util
+from . import Global, Sprite, util
 
 VOID = -1
 
@@ -63,7 +62,6 @@ class Thing:
 
     def moveBlocked(self, level, x, y):
         """Returns None if okay to move, or a string explaining why not."""
-        return None
 
     def nextTurn(self, turn, level):
         pass

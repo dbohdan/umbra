@@ -1,7 +1,21 @@
-from . import Ammo, Cash, Door, Dungeon, Lamp, Level, Script, Skill, Terrain
-from . import Bestiary, Shop
-from . import Global, util
-import copy, random
+import copy
+import random
+
+from . import (
+    Ammo,
+    Bestiary,
+    Cash,
+    Door,
+    Dungeon,
+    Global,
+    Lamp,
+    Level,
+    Script,
+    Shop,
+    Skill,
+    Terrain,
+    util,
+)
 
 DEBUG = 0
 
@@ -108,7 +122,10 @@ class Temple:
         ystairs0 = ycoord
         # put some cultists on the surface
         sector.makeEncounters(
-            lvl, util.d(3, 10), CULTIST_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+            lvl,
+            util.d(3, 10),
+            CULTIST_ENCOUNTERS,
+            Terrain.ENC_TERRAIN_OUTDOORS,
         )
         # dig out the lower levels, undefined squares = None
         #        util.expandArray(sector.level, util.d(2, 3))
@@ -122,7 +139,7 @@ class Temple:
         for lvlnum in range(len(sector.level) - 1):
             if lvlnum == len(sector.level) - 2:
                 Global.umbra.showStatus(
-                    "." * (len(sector.level) - lvlnum - 1) + " - Almost done!"
+                    "." * (len(sector.level) - lvlnum - 1) + " - Almost done!",
                 )
             else:
                 Global.umbra.showStatus("." * (len(sector.level) - lvlnum - 1))
@@ -159,7 +176,10 @@ class Temple:
 
             # scatter guardians
             sector.makeEncounters(
-                lvl1, util.d(5, 10), CULTIST_ENCOUNTERS, Terrain.ENC_TERRAIN_INDOORS
+                lvl1,
+                util.d(5, 10),
+                CULTIST_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_INDOORS,
             )
             # and a sanity-blasting black altar...
             xaltar, yaltar = self.findClearLoc(lvl1)

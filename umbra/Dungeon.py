@@ -1,7 +1,8 @@
+import math
+import random
+
+from . import Door, Global, Terrain, util
 from .DungeonFeature import *
-from . import Door, Terrain
-from . import Global, util
-import math, random
 
 DEBUG = 0
 SIZE = Global.LEVELSIZE
@@ -65,23 +66,38 @@ class Dungeon:
                 roll = util.d(1, 100)
                 if roll <= closedRoom:
                     self.feature = DungeonClosedRoom(
-                        self, self.xSelect, self.ySelect, self.dirSelect
+                        self,
+                        self.xSelect,
+                        self.ySelect,
+                        self.dirSelect,
                     )
                 elif roll <= openRoom:
                     self.feature = DungeonOpenRoom(
-                        self, self.xSelect, self.ySelect, self.dirSelect
+                        self,
+                        self.xSelect,
+                        self.ySelect,
+                        self.dirSelect,
                     )
                 elif roll <= semiOpenRoom:
                     self.feature = DungeonSemiOpenRoom(
-                        self, self.xSelect, self.ySelect, self.dirSelect
+                        self,
+                        self.xSelect,
+                        self.ySelect,
+                        self.dirSelect,
                     )
                 elif roll <= doorHall:
                     self.feature = DungeonDoorHall(
-                        self, self.xSelect, self.ySelect, self.dirSelect
+                        self,
+                        self.xSelect,
+                        self.ySelect,
+                        self.dirSelect,
                     )
                 else:  # roll <= openHall:
                     self.feature = DungeonOpenHall(
-                        self, self.xSelect, self.ySelect, self.dirSelect
+                        self,
+                        self.xSelect,
+                        self.ySelect,
+                        self.dirSelect,
                     )
                 if self.feature.checkSpace():
                     break
@@ -161,7 +177,7 @@ class Dungeon:
                             x,
                             y,
                             self.getHookDir(ter),
-                        )
+                        ),
                     )
         nhooks = len(hooks)
         if nhooks == 0:
@@ -203,21 +219,21 @@ class Dungeon:
             if DEBUG:
                 print(
                     "stripping door at %d,%d,f=%d: count==%d: %s"
-                    % (x, y, door.facing, dirOpen.count(1), dirOpen)
+                    % (x, y, door.facing, dirOpen.count(1), dirOpen),
                 )
             return 1
         if dirOpen[Global.North] and dirOpen[Global.South]:
             if DEBUG:
                 print(
                     "not stripping door at %d,%d,f=%d: n/s: %s"
-                    % (x, y, door.facing, dirOpen)
+                    % (x, y, door.facing, dirOpen),
                 )
             return 0
         if dirOpen[Global.East] and dirOpen[Global.West]:
             if DEBUG:
                 print(
                     "not stripping door at %d,%d,f=%d: e/w: %s"
-                    % (x, y, door.facing, dirOpen)
+                    % (x, y, door.facing, dirOpen),
                 )
             return 0
         else:
@@ -226,7 +242,7 @@ class Dungeon:
             if DEBUG:
                 print(
                     "stripping door at %d,%d,f=%d: else: %s"
-                    % (x, y, door.facing, dirOpen)
+                    % (x, y, door.facing, dirOpen),
                 )
             return 1
         return 1

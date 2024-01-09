@@ -1,5 +1,4 @@
-from . import Item, Loot
-from . import Global, util
+from . import Global, Item, Loot, util
 
 
 class Ammo(Loot.Loot):

@@ -1,8 +1,23 @@
-from . import Brain, Level, Merchant, Shop, Teacher, Terrain
-from . import Ammo, Cash, Door, Lamp, Thing, Window
-from . import Bestiary
-from . import Global, util
-import copy, os, string, random
+import copy
+import os
+import random
+
+from . import (
+    Ammo,
+    Bestiary,
+    Cash,
+    Door,
+    Global,
+    Lamp,
+    Level,
+    Merchant,
+    Shop,
+    Teacher,
+    Terrain,
+    Thing,
+    Window,
+    util,
+)
 
 DEBUG = 0
 
@@ -367,7 +382,7 @@ class Town:
         largest = max(w, h)
         DX = Global.DX
         DY = Global.DY
-        for doorside in range(0, Global.NDIRS):
+        for doorside in range(Global.NDIRS):
             for wh in range(1, largest - 1):
                 if doorside == Global.North:
                     if wh >= w - 1:
@@ -402,7 +417,9 @@ class Town:
                     if not self.doorIsClear(level1, x2, y2):
                         clear = 0
                     if not self.doorIsClear(
-                        level1, x2 + DX[doorside], y2 + DY[doorside]
+                        level1,
+                        x2 + DX[doorside],
+                        y2 + DY[doorside],
                     ):
                         clear = 0
                     left = Global.turnLeft(doorside)
@@ -490,7 +507,11 @@ class Town:
                 x = x0 + util.d(1, w) - 1
                 y = y0 + util.d(1, h) - 1
             who = self.sector.makeOneEntity(
-                level1, x, y, Bestiary.S_Teacher, Teacher.Teacher
+                level1,
+                x,
+                y,
+                Bestiary.S_Teacher,
+                Teacher.Teacher,
             )
             x = doordata[0] + Global.DX[doordata[3]]
             y = doordata[1] + Global.DY[doordata[3]]
@@ -503,7 +524,11 @@ class Town:
             doorside = doordata[3]
             xmerch, ymerch, counters = self.getMerchantCoord(x0, y0, w, h, doorside)
             who = self.sector.makeOneEntity(
-                level1, xmerch, ymerch, Bestiary.S_Merchant, Merchant.Merchant
+                level1,
+                xmerch,
+                ymerch,
+                Bestiary.S_Merchant,
+                Merchant.Merchant,
             )
             who.facing = doorside
             shoptype = self.getShopType()
@@ -616,15 +641,21 @@ class Town:
         # walls around the upper door if it's outside the room
         if clear:
             level1.setTerrain(
-                x2 + Global.DX[side], y2 + Global.DY[side], Terrain.Stone_Wall
+                x2 + Global.DX[side],
+                y2 + Global.DY[side],
+                Terrain.Stone_Wall,
             )
             left = Global.turnLeft(side)
             level1.setTerrain(
-                x2 + Global.DX[left], y2 + Global.DY[left], Terrain.Stone_Wall
+                x2 + Global.DX[left],
+                y2 + Global.DY[left],
+                Terrain.Stone_Wall,
             )
             right = Global.turnRight(side)
             level1.setTerrain(
-                x2 + Global.DX[right], y2 + Global.DY[right], Terrain.Stone_Wall
+                x2 + Global.DX[right],
+                y2 + Global.DY[right],
+                Terrain.Stone_Wall,
             )
         # roads around the building
         for y in range(y0 - 1, y0 + h):
@@ -667,7 +698,11 @@ class Town:
                 door = (xdoor, ydoor, Door.S_Open, side, 1)
                 self.makeBuildingWithDoor(level, level1, x, y, 3, 2, door)
                 merch = self.sector.makeOneEntity(
-                    level1, xmerch, ymerch, Bestiary.S_Merchant, Merchant.Merchant
+                    level1,
+                    xmerch,
+                    ymerch,
+                    Bestiary.S_Merchant,
+                    Merchant.Merchant,
                 )
                 shoptype = self.getShopType()
                 merch.setShopType(shoptype)

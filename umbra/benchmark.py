@@ -1,5 +1,4 @@
-from . import util
-import binascii, string
+import binascii
 import time
 
 MAX = 100000
@@ -7,7 +6,7 @@ color = "#ffcc99"
 
 
 def print_time(label, start, end):
-    print("{0} took {1:.2f} ms".format(label, (end - start) * 1000))
+    print(f"{label} took {(end - start) * 1000:.2f} ms")
 
 
 t1 = time.clock()

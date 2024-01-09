@@ -1,6 +1,6 @@
-from . import Terrain
-from . import Global, util
-import copy, time, random
+import time
+
+from . import Global, Terrain, util
 
 SIZE = Global.LEVELSIZE
 

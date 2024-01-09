@@ -1,6 +1,6 @@
-from . import Thing
-from . import Global, util
 import os
+
+from . import Thing
 
 
 class Window(Thing.Thing):

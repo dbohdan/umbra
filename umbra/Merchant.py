@@ -1,6 +1,6 @@
-from . import Entity, Item, Ranged, Ammo, Shop
-from . import Global, util
-import copy, string
+import copy
+
+from . import Ammo, Entity, Global, Item, Ranged, Shop, util
 
 
 class Merchant(Entity.Entity):
@@ -34,7 +34,7 @@ class Merchant(Entity.Entity):
         if Global.COMBAT_DEBUG:
             print(
                 "%s.presence=%d, %s.presence=%d, costMod=%f"
-                % (self.name, myPresence, who.name, whoPresence, costMod)
+                % (self.name, myPresence, who.name, whoPresence, costMod),
             )
         return costMod
 
@@ -54,7 +54,7 @@ class Merchant(Entity.Entity):
         if Global.COMBAT_DEBUG:
             print(
                 "%s: cost=%d, resale=%f, costMod=%f, price=$%d"
-                % (item.name, item.cost(), item.resale, costMod, price)
+                % (item.name, item.cost(), item.resale, costMod, price),
             )
         if price > self.cash:
             who.message("%s cannot afford it." % self.name)
@@ -118,7 +118,10 @@ class Merchant(Entity.Entity):
             if isinstance(item, Ranged.Ranged):
                 ammoType = item.name.split()[0]
                 ammo = Ammo.Ammo(
-                    "%s ammo" % ammoType, "ammo", ammoType, item.ammoCapacity
+                    "%s ammo" % ammoType,
+                    "ammo",
+                    ammoType,
+                    item.ammoCapacity,
                 )
                 ammo.setCost(max(1, item.cost() // 10))
                 self.addProduct(ammo, quantity * util.d(2, 3) - 1)
@@ -146,7 +149,7 @@ class Merchant(Entity.Entity):
             if Global.COMBAT_DEBUG:
                 print(
                     "%s: cost=%d, resale=%f, costMod=%f, price=$%d"
-                    % (item.name, item.cost(), item.resale, costMod, cost)
+                    % (item.name, item.cost(), item.resale, costMod, cost),
                 )
             quantity = inv[1]
             if quantity <= 0:
@@ -210,6 +213,6 @@ class Merchant(Entity.Entity):
         inv[1] -= amount
         who.message(
             "You buy %s %s%s for $%d"
-            % (countText, item.name, pluralText, cost * amount)
+            % (countText, item.name, pluralText, cost * amount),
         )
         return 1

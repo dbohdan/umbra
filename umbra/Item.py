@@ -1,5 +1,6 @@
-from . import Thing
 import os
+
+from . import Thing
 
 NOT_FOR_SALE = 0
 HALF_PRICE = 0.5

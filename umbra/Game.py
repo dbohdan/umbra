@@ -1,8 +1,23 @@
-from . import Bestiary, Entity, Item, Loot, Cash, Sector, Shop, Skill, Spell
-from . import Terrain, Thing
-from . import Global, util
-import pickle, math, os, string, sys, time, random
 import gzip
+import math
+import os
+import pickle
+import random
+import time
+
+from . import (
+    Bestiary,
+    Cash,
+    Entity,
+    Global,
+    Sector,
+    Shop,
+    Skill,
+    Spell,
+    Terrain,
+    Thing,
+    util,
+)
 
 FILENAME = "game.dat"
 
@@ -65,8 +80,8 @@ class Game:
 
     def __str__(self):
         text = ""
-        for y in range(0, WORLDSIZE):
-            for x in range(0, WORLDSIZE):
+        for y in range(WORLDSIZE):
+            for x in range(WORLDSIZE):
                 text = "%s%c" % (text, self.getSectorType(x, y))
             text = "%s\n" % text
         return text
@@ -111,7 +126,7 @@ class Game:
         if Global.DEBUG:
             print(
                 "turn=%d, hour=%4.1f, Sun height=%d, facing=%d"
-                % (turn, self.hour, self.sunheight, self.sunfacing)
+                % (turn, self.hour, self.sunheight, self.sunfacing),
             )
 
         # Moon orbit and height relation:
@@ -161,7 +176,7 @@ class Game:
                     self.moonheight,
                     self.moonphase,
                     self.moonfacing,
-                )
+                ),
             )
 
         if self.sunfacing == self.moonfacing and self.sunheight == self.moonheight:
@@ -309,9 +324,10 @@ class Game:
         for who in self.tavern + self.party:
             if util.purifyName(who.name) == pname:
                 Global.umbra.alert(
-                    "Create Character", "You already have a character named %s." % name
+                    "Create Character",
+                    "You already have a character named %s." % name,
                 )
-                return
+                return None
         p = Entity.Entity(name, "human", Bestiary.S_Adventurer, gender, prof, stat)
         p.player = 1
         self.party.append(p)
@@ -390,8 +406,8 @@ class Game:
         # Ooh, bad luck, Dr. Jones, looks like a soul-sucking altar!
         elif Global.START_DEBUG == 2:
             lvl1 = self.sector.level[1]
-            for y in range(0, LEVELSIZE):
-                for x in range(0, LEVELSIZE):
+            for y in range(LEVELSIZE):
+                for x in range(LEVELSIZE):
                     if lvl1.getTerrain(x, y) == Terrain.Altar:
                         self.moveTo(1, x - 1, y + 1, safety=0)
                         return
@@ -407,15 +423,15 @@ class Game:
         self.setSectorType(step, step, Global.SECTOR_Plains)
         self.__makeFractal(step // 2)
         # apply geological forces
-        for y in range(0, WORLDSIZE):
-            for x in range(0, WORLDSIZE):
+        for y in range(WORLDSIZE):
+            for x in range(WORLDSIZE):
                 type = self.getSectorType(x, y)
                 if type == Global.SECTOR_Plains:
                     self.__randomizePlains(x, y)
         # create the coasts
         coastcoords = []
-        for y in range(0, WORLDSIZE):
-            for x in range(0, WORLDSIZE):
+        for y in range(WORLDSIZE):
+            for x in range(WORLDSIZE):
                 type = self.getSectorType(x, y)
                 if type == Global.SECTOR_Water:
                     if self.__randomizeWater(x, y):
@@ -767,7 +783,7 @@ class Game:
                 else:
                     volume = "faint "
                 Global.umbra.showStatus(
-                    "You hear %schanting to the %s%s!" % (volume, ns, ew)
+                    "You hear %schanting to the %s%s!" % (volume, ns, ew),
                 )
 
         dist = Global.VIEWDIST + 1
@@ -816,8 +832,8 @@ class Game:
             defaultVisible = 0
         else:
             defaultVisible = 1
-        for vy in range(0, Global.VIEWSIZE):
-            for vx in range(0, Global.VIEWSIZE):
+        for vy in range(Global.VIEWSIZE):
+            for vx in range(Global.VIEWSIZE):
                 self.view[vx][vy][0] = None
                 self.view[vx][vy][1] = None
                 self.view[vx][vy][2] = light_level
@@ -920,7 +936,7 @@ class Game:
                 t2 = time.clock()
                 print("saveGame(%s)=%dms" % (filename, (t2 - t1) * 1000))
             file.close()
-        except IOError as detail:
+        except OSError as detail:
             Global.umbra.alert(
                 "Save Game",
                 "Could not save to %s: %s" % (filename, detail),
@@ -934,7 +950,6 @@ class Game:
     def setFacing(self, facing):
         for c in self.party:
             c.facing = facing
-        return None
 
     def setSectorType(self, wx, wy, type):
         self.__sectorType[wy * WORLDSIZE + wx] = type
@@ -1001,7 +1016,7 @@ def loadGame(dirname):
             t2 = time.clock()
             print("loadGame(%s)=%dms" % (dirname, (t2 - t1) * 1000))
         file.close()
-    except IOError as detail:
+    except OSError as detail:
         Global.umbra.alert(
             "Load Game",
             "Could not load from %s: %s" % (filename, detail),
@@ -1016,7 +1031,9 @@ def loadGame(dirname):
     stuff = game.getLevel(party_levelnum).getEntities(party_x, party_y)
     if not stuff:
         Global.umbra.alert(
-            "Load Game", "Could not locate party!", type=Global.ALERT_ERROR
+            "Load Game",
+            "Could not locate party!",
+            type=Global.ALERT_ERROR,
         )
         Global.umbra.busy(0)
         return None

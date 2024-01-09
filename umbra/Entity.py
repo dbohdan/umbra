@@ -1,10 +1,21 @@
-from . import Brain, Skill, Script, Sprite
-from . import Thing, Item, Equip, Loot, Melee, Ranged, Defense, Ammo
-from . import Bestiary, Terrain
-from . import Global, util
-from . import OkayDialog
+import os
 import tkinter
-import copy, os, string, random
+
+from . import (
+    Ammo,
+    Bestiary,
+    Brain,
+    Defense,
+    Equip,
+    Global,
+    Loot,
+    OkayDialog,
+    Script,
+    Skill,
+    Sprite,
+    Thing,
+    util,
+)
 
 DEBUG_WITNESS = 1
 
@@ -113,7 +124,7 @@ class Entity(Thing.Thing):
             return 0
         if Global.COMBAT_DEBUG:
             print(
-                "%s.addItem(%s): count=%d" % (self.name, item.name, self.countItems())
+                "%s.addItem(%s): count=%d" % (self.name, item.name, self.countItems()),
             )
         self.__items.append(item)
         return 1
@@ -294,7 +305,7 @@ class Entity(Thing.Thing):
                     Global.STAT_NAMES[st],
                     self.skillPoints,
                     util.test(self.skillPoints > 1, "s", ""),
-                )
+                ),
             )
 
     def charText(self, columns):
@@ -417,11 +428,21 @@ class Entity(Thing.Thing):
             if score > 0:
                 xscore = min(w // 2, w // 2 * score // maxscore)
                 canvas.create_rectangle(
-                    x, y, x + xscore, y + htiny + 1, fill="", outline=scorecolor
+                    x,
+                    y,
+                    x + xscore,
+                    y + htiny + 1,
+                    fill="",
+                    outline=scorecolor,
                 )
             text = "%-7s %2d [%2d]" % (Global.STAT_NAMES[st], score, maxscore)
             canvas.create_text(
-                x + 2, y, text=text, font=tinyfont, fill=scorecolor, anchor=tkinter.NW
+                x + 2,
+                y,
+                text=text,
+                font=tinyfont,
+                fill=scorecolor,
+                anchor=tkinter.NW,
             )
             y += htiny + 2
         canvas.create_line(0, y, w, y, fill="#cccccc")
@@ -583,7 +604,7 @@ class Entity(Thing.Thing):
             if roll > 0:
                 self.stat[Global.Madness] += max(0, fspecies * util.d(1, 6))
                 self.message(
-                    "You take %d Madness for killing %s!" % (roll, target.name)
+                    "You take %d Madness for killing %s!" % (roll, target.name),
                 )
                 self.checkStatus()
         # distribute XP
@@ -779,13 +800,13 @@ class Entity(Thing.Thing):
         if item.cursed:
             if self.player:
                 Global.umbra.showStatus(
-                    "%s cannot remove %s - it is cursed!" % (self.name, item.name)
+                    "%s cannot remove %s - it is cursed!" % (self.name, item.name),
                 )
             return 0
         if self.countItems() >= MAXITEMS:
             if self.player:
                 Global.umbra.showStatus(
-                    "%s: You cannot remove that until you drop some items!" % self.name
+                    "%s: You cannot remove that until you drop some items!" % self.name,
                 )
             return 0
         if item.unreadyEffect:
@@ -845,13 +866,21 @@ class Entity(Thing.Thing):
                         continue
                     # you only care if you can see who the victim is
                     if not level.clearLOS(
-                        who.x(), who.y(), victim.x(), victim.y(), Global.VIEWDIST
+                        who.x(),
+                        who.y(),
+                        victim.x(),
+                        victim.y(),
+                        Global.VIEWDIST,
                     ):
                         if DEBUG_WITNESS:
                             print("can't see %s" % victim.name)
                         continue
                     if not level.clearLOS(
-                        who.x(), who.y(), self.x(), self.y(), Global.VIEWDIST
+                        who.x(),
+                        who.y(),
+                        self.x(),
+                        self.y(),
+                        Global.VIEWDIST,
                     ):
                         if DEBUG_WITNESS:
                             print("can't see %s" % self.name)
@@ -881,7 +910,7 @@ class Entity(Thing.Thing):
                             player=0,
                         )
                         Global.umbra.showStatus(
-                            "%s attacks %s" % (self.name, victim.name)
+                            "%s attacks %s" % (self.name, victim.name),
                         )
 
 

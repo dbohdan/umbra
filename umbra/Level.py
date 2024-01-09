@@ -1,7 +1,6 @@
-from . import Door, Sector, Terrain, Thing, Entity
-from . import Global, util
-import math, os, string, time
-import gzip
+import os
+
+from . import Door, Entity, Global, Terrain, Thing, util
 
 DEBUG_LOS = 0
 
@@ -26,8 +25,8 @@ class Level:
 
     def __str__(self):
         text = ""
-        for y in range(0, SIZE):
-            for x in range(0, SIZE):
+        for y in range(SIZE):
+            for x in range(SIZE):
                 door = self.getDoor(x, y)
                 if door:
                     if door.trap:

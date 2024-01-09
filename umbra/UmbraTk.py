@@ -1,8 +1,9 @@
-from . import Entity, Level, Umbra
-from . import Canvas3D, OkayDialog
-from . import Global, util
+import os
+import string
+import time
 from tkinter import *
-import os, string, sys, time, types
+
+from . import Canvas3D, Entity, Global, OkayDialog, Umbra, util
 
 STATUS_WIDTH = 64
 CHAR_STATUS_WIDTH = 220
@@ -209,7 +210,12 @@ class UmbraTk(Umbra.Umbra):
         right = Global.VIEWDIST
         for nx in range(left, right + 1):
             self.canvas.drawPanel3D(
-                Global.Side_Near, nx, ny, "#ffffff", "", stipple="gray75"
+                Global.Side_Near,
+                nx,
+                ny,
+                "#ffffff",
+                "",
+                stipple="gray75",
             )
 
     def __showGridAs3D(self, nx, ny, grid, facing):
@@ -232,7 +238,12 @@ class UmbraTk(Umbra.Umbra):
                 n = 0
             text = "%2s%1d" % (grid[0], n)
             self.canvas.create_text(
-                sx, sy, text=text, font=self.__tinyfont, fill="#ff0000", anchor=NW
+                sx,
+                sy,
+                text=text,
+                font=self.__tinyfont,
+                fill="#ff0000",
+                anchor=NW,
             )
         else:
             self.canvas.create_rectangle(sx, sy, sx + 20, sy + 20, outline="#663333")
@@ -250,7 +261,16 @@ class UmbraTk(Umbra.Umbra):
             self.__showFog()
         if facing == Global.North:
             self.__showMapNS3D(
-                map, facing, 0, center + 1, 1, left, center, right, center - 1, 1
+                map,
+                facing,
+                0,
+                center + 1,
+                1,
+                left,
+                center,
+                right,
+                center - 1,
+                1,
             )
         elif facing == Global.East:
             self.__showMapEW3D(
@@ -280,7 +300,16 @@ class UmbraTk(Umbra.Umbra):
             )
         else:  # facing == Global.West
             self.__showMapEW3D(
-                map, facing, 0, center + 1, 1, right, center, left, center + 1, -1
+                map,
+                facing,
+                0,
+                center + 1,
+                1,
+                right,
+                center,
+                left,
+                center + 1,
+                -1,
             )
 
     def __showMapNS3D(self, map, facing, y0, y1, dy, x0, x1, x2, x3, dx):
@@ -353,7 +382,12 @@ class UmbraTk(Umbra.Umbra):
         size = self.size
         if self.game.getLevel().levelnum != 0:
             self.canvas.create_rectangle(
-                0, 0, size, size, fill="#000000", outline="#000000"
+                0,
+                0,
+                size,
+                size,
+                fill="#000000",
+                outline="#000000",
             )
             return
         half = size // 2
@@ -380,7 +414,12 @@ class UmbraTk(Umbra.Umbra):
             else:
                 skyfill = "#6699ee"
             self.canvas.create_rectangle(
-                0, 0, size, size, fill=skyfill, outline=skyfill
+                0,
+                0,
+                size,
+                size,
+                fill=skyfill,
+                outline=skyfill,
             )
 
             # sunrise
@@ -397,7 +436,13 @@ class UmbraTk(Umbra.Umbra):
                     )
                 elif facing == Global.West:
                     self.canvas.create_rectangle(
-                        0, 0, size, size, fill="#000044", outline="", stipple="gray50"
+                        0,
+                        0,
+                        size,
+                        size,
+                        fill="#000044",
+                        outline="",
+                        stipple="gray50",
                     )
             # sunset
             elif ihour == 19:
@@ -413,7 +458,13 @@ class UmbraTk(Umbra.Umbra):
                     )
                 elif facing == Global.East:
                     self.canvas.create_rectangle(
-                        0, 0, size, size, fill="#000044", outline="", stipple="gray50"
+                        0,
+                        0,
+                        size,
+                        size,
+                        fill="#000044",
+                        outline="",
+                        stipple="gray50",
                     )
 
             # father sun
@@ -430,7 +481,12 @@ class UmbraTk(Umbra.Umbra):
         else:  # night or eclipse
             skyfill = "#000000"
             self.canvas.create_rectangle(
-                0, 0, size, size, fill=skyfill, outline=skyfill
+                0,
+                0,
+                size,
+                size,
+                fill=skyfill,
+                outline=skyfill,
             )
             stars = self.game.stars
             for i in range(0, len(stars), 4):
@@ -714,14 +770,17 @@ class UmbraTk(Umbra.Umbra):
         if Global.DEBUG:
             print("input title=%s, prompt=%s" % (title, prompt))
         return OkayDialog.InputDialog(
-            self.root, title, self.dialog_geometry, prompts=(prompt,)
+            self.root,
+            title,
+            self.dialog_geometry,
+            prompts=(prompt,),
         ).getAnswer(0)
 
     def menu(self, title, prompts, keys=None, banner=None):
         if Global.DEBUG:
             print(
                 "menu title=%s, prompts=%s, keys=%s, banner=%s"
-                % (title, prompts, keys, banner)
+                % (title, prompts, keys, banner),
             )
         if not keys:
             a = ord("a")
@@ -753,13 +812,25 @@ class UmbraTk(Umbra.Umbra):
             x = util.d(1, self.size - w - w)
             y = util.d(1, self.size - h - h)
             self.canvas.create_oval(
-                x - w, y - h, x + w, y + h, fill="#ff0000", outline="", stipple="gray75"
+                x - w,
+                y - h,
+                x + w,
+                y + h,
+                fill="#ff0000",
+                outline="",
+                stipple="gray75",
             )
             i = x - w + util.d(1, 3) + 1
             j = x + w - 1
             while i < j:
                 self.canvas.create_line(
-                    i, y, i, self.size, width=2, fill="#ff0000", stipple="gray50"
+                    i,
+                    y,
+                    i,
+                    self.size,
+                    width=2,
+                    fill="#ff0000",
+                    stipple="gray50",
                 )
                 i += util.d(1, 3) + 1
         self.root.update_idletasks()
@@ -767,7 +838,11 @@ class UmbraTk(Umbra.Umbra):
 
     def showCharacter(self, ch, main=1):
         d = Entity.EntityDialog(
-            self.root, ch.name, self.dialog_geometry, entity=ch, main=main
+            self.root,
+            ch.name,
+            self.dialog_geometry,
+            entity=ch,
+            main=main,
         )
         if main:
             return util.indexOf(d.button, Global.VIEW_MENU)
@@ -803,7 +878,7 @@ class UmbraTk(Umbra.Umbra):
         if Global.DEBUG:
             print(
                 "showGunshot %d,%d, %d,%d, v=%d,%d,%d, %d,%d,%d"
-                % (x0, y0, x1, y1, vx0, vy0, vz0, vx1, vy1, vz1)
+                % (x0, y0, x1, y1, vx0, vy0, vz0, vx1, vy1, vz1),
             )
         if vz0 >= 0 and vz1 >= 0:  # can't see it for back shots
             if player:
@@ -833,7 +908,7 @@ class UmbraTk(Umbra.Umbra):
                     (t2 - t1) * 1000,
                     (self.timing_sky_end - self.timing_sky_start) * 1000,
                     (self.timing_update_end - self.timing_update_start) * 1000,
-                )
+                ),
             )
 
     def showText(self, title, text):

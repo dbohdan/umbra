@@ -8,5 +8,5 @@ for i in range(8):
 
     print(
         "o:a:#cccccc:#ffffff: %4.2f,-1,%4.2f; %4.2f,-1,%4.2f:"
-        % (x - RADIUS, z - RADIUS, x + RADIUS, z + RADIUS)
+        % (x - RADIUS, z - RADIUS, x + RADIUS, z + RADIUS),
     )

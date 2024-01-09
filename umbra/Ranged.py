@@ -1,5 +1,4 @@
-from . import Equip
-from . import Global
+from . import Equip, Global
 
 
 class Ranged(Equip.Equip):

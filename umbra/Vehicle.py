@@ -1,6 +1,6 @@
-from . import Sprite, Terrain, Thing
-from . import Global, util
 import os
+
+from . import Sprite, Terrain, Thing
 
 
 class Vehicle(Thing.Thing):

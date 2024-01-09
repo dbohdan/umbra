@@ -1,8 +1,21 @@
-from . import Bestiary, Door, Entity, Level, Script, Terrain
-from . import Generators, Ruins, Temple, Town
-from . import Global, util
-import pickle, time, random
 import gzip
+import pickle
+import random
+import time
+
+from . import (
+    Bestiary,
+    Door,
+    Entity,
+    Generators,
+    Global,
+    Level,
+    Ruins,
+    Script,
+    Terrain,
+    Town,
+    util,
+)
 
 DEBUG = 0
 SIZE = Global.LEVELSIZE
@@ -65,7 +78,7 @@ class Sector:
         # ________________________________________
         else:
             raise ValueError(
-                "Unknown sector type %c at %d,%d" % (sectorType, self.wx, self.wy)
+                "Unknown sector type %c at %d,%d" % (sectorType, self.wx, self.wy),
             )
         self.initPlayerMap()
         if Global.SHOWWORLD:
@@ -98,21 +111,57 @@ class Sector:
         state,
     ):
         self.makeDoor(
-            lvl0, xdoor0, ydoor0, side0, msg0, lvl1, xdoor1, ydoor1, side1, state
+            lvl0,
+            xdoor0,
+            ydoor0,
+            side0,
+            msg0,
+            lvl1,
+            xdoor1,
+            ydoor1,
+            side1,
+            state,
         )
         self.makeDoor(
-            lvl1, xdoor1, ydoor1, side1, msg1, lvl0, xdoor0, ydoor0, side0, state
+            lvl1,
+            xdoor1,
+            ydoor1,
+            side1,
+            msg1,
+            lvl0,
+            xdoor0,
+            ydoor0,
+            side0,
+            state,
         )
 
     def makeDoor(
-        self, lvl0, xdoor0, ydoor0, side0, msg0, lvl1, xdoor1, ydoor1, side1, state
+        self,
+        lvl0,
+        xdoor0,
+        ydoor0,
+        side0,
+        msg0,
+        lvl1,
+        xdoor1,
+        ydoor1,
+        side1,
+        state,
     ):
         lvl0.setTerrain(xdoor0, ydoor0, Terrain.Doorway)
         door = Door.Door(side0, state)
         door.linkedTo = (xdoor1, ydoor1, lvl1.levelnum)
         lvl0.addStuff(xdoor0, ydoor0, door)
         self.makeTeleport(
-            lvl0, xdoor0, ydoor0, side0, msg0, lvl1, xdoor1, ydoor1, side1
+            lvl0,
+            xdoor0,
+            ydoor0,
+            side0,
+            msg0,
+            lvl1,
+            xdoor1,
+            ydoor1,
+            side1,
         )
 
     def makeEncounters(self, level, ncritters, table, okayterrain):
@@ -325,38 +374,87 @@ class Sector:
                     side1,
                     wall,
                     floor,
-                )
+                ),
             )
         lvl0.setTerrain(xstairs0, ystairs0, floor)
         self.makeTeleport(
-            lvl0, xstairs0, ystairs0, side0, msg0, lvl1, xstairs1, ystairs1, side1
+            lvl0,
+            xstairs0,
+            ystairs0,
+            side0,
+            msg0,
+            lvl1,
+            xstairs1,
+            ystairs1,
+            side1,
         )
         if lvl0.levelnum > 0:  # make walls around the stairs
             back = Global.turnBack(side0)
             lvl0.setTerrain(
-                xstairs0 + Global.DX[back], ystairs0 + Global.DY[back], wall
+                xstairs0 + Global.DX[back],
+                ystairs0 + Global.DY[back],
+                wall,
             )
             left = Global.turnLeft(side0)
             lvl0.setTerrain(
-                xstairs0 + Global.DX[left], ystairs0 + Global.DY[left], wall
+                xstairs0 + Global.DX[left],
+                ystairs0 + Global.DY[left],
+                wall,
             )
             right = Global.turnRight(side0)
             lvl0.setTerrain(
-                xstairs0 + Global.DX[right], ystairs0 + Global.DY[right], wall
+                xstairs0 + Global.DX[right],
+                ystairs0 + Global.DY[right],
+                wall,
             )
 
     def makeTeleportPair(
-        self, lvl0, xtport0, ytport0, side0, msg0, lvl1, xtport1, ytport1, side1, msg1
+        self,
+        lvl0,
+        xtport0,
+        ytport0,
+        side0,
+        msg0,
+        lvl1,
+        xtport1,
+        ytport1,
+        side1,
+        msg1,
     ):
         self.makeTeleport(
-            lvl0, xtport0, ytport0, side0, msg0, lvl1, xtport1, ytport1, side1
+            lvl0,
+            xtport0,
+            ytport0,
+            side0,
+            msg0,
+            lvl1,
+            xtport1,
+            ytport1,
+            side1,
         )
         self.makeTeleport(
-            lvl1, xtport1, ytport1, side1, msg1, lvl0, xtport0, ytport0, side0
+            lvl1,
+            xtport1,
+            ytport1,
+            side1,
+            msg1,
+            lvl0,
+            xtport0,
+            ytport0,
+            side0,
         )
 
     def makeTeleport(
-        self, lvl0, xtport0, ytport0, side0, msg0, lvl1, xtport1, ytport1, side1
+        self,
+        lvl0,
+        xtport0,
+        ytport0,
+        side0,
+        msg0,
+        lvl1,
+        xtport1,
+        ytport1,
+        side1,
     ):
         enterScript = Script.Script(
             (Script.T, Script.ECHO, msg0),
@@ -380,7 +478,7 @@ class Sector:
             if Global.TIMING:
                 t2 = time.clock()
                 print("saveSector(%s)=%dms" % (filename, (t2 - t1) * 1000))
-        except IOError as detail:
+        except OSError as detail:
             Global.umbra.alert(
                 "Save Sector",
                 "Could not save to %s: %s" % (filename, detail),
@@ -422,7 +520,7 @@ def loadSector(filename):
         if Global.TIMING:
             t2 = time.clock()
             print("loadSector(%s)=%dms" % (filename, (t2 - t1) * 1000))
-    except IOError as detail:
+    except OSError as detail:
         Global.umbra.alert(
             "Load Sector",
             "Could not read from %s: %s" % (filename, detail),

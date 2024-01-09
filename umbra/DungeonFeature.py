@@ -1,5 +1,4 @@
-from . import Door, Terrain
-from . import Global, util
+from . import Global, Terrain, util
 
 SIZE = Global.LEVELSIZE
 DX = Global.DX
@@ -31,7 +30,6 @@ class DungeonFeature:
 
     def add(self):
         """override me!"""
-        pass
 
     def addTail(self):
         x = self.xloc + self.width * DX[self.facing]
@@ -149,7 +147,9 @@ class DungeonOpenRoom(DungeonAbstractRoom):
         level.setTerrain(self.xloc, self.yloc, Terrain.Dungeon_Floor)
         back = Global.turnBack(self.facing)
         level.setTerrain(
-            self.xloc + DX[back], self.yloc + DY[back], Terrain.Dungeon_Floor
+            self.xloc + DX[back],
+            self.yloc + DY[back],
+            Terrain.Dungeon_Floor,
         )
 
 

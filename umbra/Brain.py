@@ -1,8 +1,8 @@
-from . import Item, Equip
-from . import Bestiary
-from . import Global, util
-import math, random
+import math
+import random
 import time
+
+from . import Bestiary, Equip, Global, Item, util
 
 NDIRS = Global.NDIRS
 DX = Global.DX
@@ -25,7 +25,7 @@ def brainAutopilot(self, turn, level):
                 self.autopilotIndex,
                 self.autopilot,
                 self.autopilot[self.autopilotIndex],
-            )
+            ),
         )
     friends, foes, victims = __getFriendsAndFoes(self, level)
     if friends:
@@ -56,7 +56,7 @@ def brainAutopilot(self, turn, level):
         self.autopilotIndex = (self.autopilotIndex + 1) % len(self.autopilot)
         return RES_Nothing
     okaydirs = __getOkayDirs(self, level)
-    if not movedir in okaydirs:
+    if movedir not in okaydirs:
         return RES_Nothing
     self.autopilotIndex = (self.autopilotIndex + 1) % len(self.autopilot)
     return __doMove(self, level, movedir)
@@ -184,7 +184,7 @@ def __doMove(self, level, movedir):
     if Global.BRAIN_DEBUG:
         print(
             "    %s from %d,%d to %d,%d"
-            % (Global.DIR_NAMES[self.facing], x0, y0, x1, y1)
+            % (Global.DIR_NAMES[self.facing], x0, y0, x1, y1),
         )
     self.move(level, x0, y0, level, x1, y1)
     return RES_Move
@@ -277,7 +277,7 @@ def __getFriendsAndFoes(self, level):
                 list(map(getName, friends)),
                 list(map(getName, foes)),
                 list(map(getName, victims)),
-            )
+            ),
         )
     return friends, foes, victims
 
@@ -330,7 +330,7 @@ def __gossip(self, level, friends):
         if Global.BRAIN_DEBUG:
             print(
                 "gossip:\n    %s: %s\n    %s: %s\n    %s"
-                % (self.name, self.friendliness, who.name, who.friendliness, merged)
+                % (self.name, self.friendliness, who.name, who.friendliness, merged),
             )
         self.friendliness = merged
         who.friendliness = merged
@@ -347,7 +347,7 @@ def __moveRandom(self, level):
     okaydirs = __getOkayDirs(self, level)
     # I'm stuck!
     if not okaydirs:
-        return
+        return None
 
     movedir = random.choice(okaydirs)
     return __doMove(self, level, movedir)
@@ -408,6 +408,6 @@ def think(self, turn, level):
     if Global.BRAIN_DEBUG and Global.TIMING:
         t2 = time.clock()
         print(
-            "%s %s=%dms" % (self.name, Global.BRAIN_NAMES[brainkey], (t2 - t1) * 1000)
+            "%s %s=%dms" % (self.name, Global.BRAIN_NAMES[brainkey], (t2 - t1) * 1000),
         )
     return rc

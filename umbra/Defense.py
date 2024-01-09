@@ -1,5 +1,4 @@
-from . import Equip
-from . import Global, util
+from . import Equip, Global, util
 
 
 class Defense(Equip.Equip):

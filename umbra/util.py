@@ -1,4 +1,9 @@
-import binascii, copy, os, re, string, types, random
+import binascii
+import copy
+import os
+import random
+import re
+import types
 
 VOWELS = ("a", "e", "i", "o", "u")
 NVOWELS = len(VOWELS)
@@ -191,7 +196,7 @@ def expandArray(a, n, value=None):
             [
                 value,
             ]
-            * (n - len(a))
+            * (n - len(a)),
         )
 
 
@@ -241,7 +246,7 @@ def __foldLine(str, maxlen):
 
 
 def indexOf(needle, haystack):
-    if not haystack or not needle or not needle in haystack:
+    if not haystack or not needle or needle not in haystack:
         return -1
     if isList(haystack):
         try:
@@ -497,7 +502,7 @@ def testTaskRolls():
         elif index >= 60:
             index = 59
         score[index] = score[index] + 1
-    for i in range(0, 60):
+    for i in range(60):
         chance = score[i] / 10.0
         #        print "%d:\t%3.1f%%\t%d" % (i-20, chance, score[i])
         print("%d:\t%s" % (i - 20, "*" * (score[i] // 2)))

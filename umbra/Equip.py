@@ -1,5 +1,4 @@
-from . import Thing, Item
-from . import Global, util
+from . import Item, util
 
 POS_Armor = 0
 POS_Headgear = 1

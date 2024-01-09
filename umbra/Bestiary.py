@@ -1,6 +1,7 @@
-from . import Brain, Equip, Shop, Skill, Script
-from . import Global, util
-import copy, random
+import copy
+import random
+
+from . import Equip, Global, Script, Shop, util
 
 NAMED_A = 0
 NAMED_AN = 1
@@ -86,7 +87,7 @@ def makeEntity(species, clazz):
                     [
                         util.randomName(util.d(1, 3) == 1).lower()
                         for i in range(util.d(2, 4))
-                    ]
+                    ],
                 ).capitalize()
                 + " Mogth!"
             )

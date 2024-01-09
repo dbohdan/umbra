@@ -4,10 +4,13 @@
 # and UmbraText.
 # All game logic is in Game.
 
-from . import Entity, Game, Equip, Item, Cash, Level, Skill, Vehicle
-from . import Sector, Terrain
-from . import Global, util
-import argparse, glob, os, shutil, string, sys, time
+import argparse
+import glob
+import os
+import shutil
+import sys
+
+from . import Cash, Entity, Equip, Game, Global, Item, Skill, Terrain, Vehicle, util
 
 G_New = 0
 G_Load = 1
@@ -119,7 +122,10 @@ def cli():
     )
 
     parser.add_argument(
-        "-timing", "--timing", action="store_true", help="enable timing debug mode"
+        "-timing",
+        "--timing",
+        action="store_true",
+        help="enable timing debug mode",
     )
 
     parser.add_argument(
@@ -179,30 +185,24 @@ class Umbra:
     # Override these!
     def alert(self, title, msg, type=Global.ALERT_WARNING):
         """Displays an error message"""
-        pass
 
     def busy(self, state):
         """If state, tells the player to wait; otherwise, clears the busy
         state."""
-        pass
 
     def gameOver(self):
         """Announces that the game is over, then quits."""
-        pass
 
     def gameView(self, game):
         """Displays the party's current location and stats."""
-        pass
 
     def input(self, title, prompt):
         """Return the answer to prompt, or None if the user cancelled."""
-        pass
 
     def menu(self, title, prompts, keys=None, banner=None):
         """Return the index of the chosen prompt item.  A 'banner' may be
         displayed above the menu, and 'keys' gives a list of hotkeys that map
         to each prompt item."""
-        pass
 
     def quit(self, err=0):
         sys.exit(err)
@@ -210,38 +210,30 @@ class Umbra:
     def showBlood(self, amount):
         """Shows 'amount' blood-splatters on the screen when a character is
         wounded."""
-        pass
 
     def showCharacter(self, ch, main=1):
         """Shows a given character's stats and inventory, then prompts for any
         inventory actions, and returns the index from VIEW_MENU."""
-        pass
 
     def showGunshot(self, x0, y0, x1, y1, fill="#cccccc", player=1):
         """Shows a bullet's path."""
-        pass
 
     def showMap(self, map):
         """Shows the grids in the given map."""
-        pass
 
     def showPlayerMap(self):
         """Shows the player's explored map."""
-        pass
 
     def showStatus(self, text):
         """Displays a short bit of text onscreen"""
-        pass
 
     def showText(self, title, text):
         """Displays a long chunk of text."""
-        pass
 
     def startMainMenu(self):
         """Begins processing the main menu, which makes a callback to
         mainMenu() with the index of the chosen command from MAIN_MENU every
         time a command is chosen."""
-        pass
 
     # ________________________________________
     def gameMenu(self):
@@ -282,7 +274,7 @@ class Umbra:
         newpath = os.path.join(Global.SAVEDIR, newname)
         if os.path.exists(newpath):
             self.alert("Cannot Copy", "You already have a game named %s!" % newname)
-            return
+            return None
         shutil.copytree(os.path.join(Global.SAVEDIR, dirname), newpath)
 
     def gameDelete(self):
@@ -303,7 +295,7 @@ class Umbra:
             "Are you sure you want to delete %s?" % dirname,
             type=Global.ALERT_YESNO,
         ):
-            return
+            return None
         for file in glob.glob(os.path.join(Global.SAVEDIR, dirname, "*")):
             os.remove(file)
         os.rmdir(os.path.join(Global.SAVEDIR, dirname))
@@ -423,7 +415,8 @@ class Umbra:
                 rc = self.mainMove(self.game.dx(Global.Left), self.game.dy(Global.Left))
             elif cmd == M_Step_Right:
                 rc = self.mainMove(
-                    self.game.dx(Global.Right), self.game.dy(Global.Right)
+                    self.game.dx(Global.Right),
+                    self.game.dy(Global.Right),
                 )
             elif cmd == M_Step_Back:
                 rc = self.mainMove(self.game.dx(Global.Back), self.game.dy(Global.Back))
@@ -476,7 +469,10 @@ class Umbra:
     def mainAttackMelee(self, who):
         """Return 1 if the attack took a turn, even if it failed."""
         target = self.selectTarget(
-            who, Global.TARGET_Melee, "%s: Select target" % who.name, ahead=1
+            who,
+            Global.TARGET_Melee,
+            "%s: Select target" % who.name,
+            ahead=1,
         )
         if target:
             who.meleeAttack(target)
@@ -486,7 +482,9 @@ class Umbra:
     def mainAttackRanged(self, who):
         """Return 1 if the attack took a turn, even if it failed."""
         target = self.selectTarget(
-            who, Global.TARGET_Ranged, "%s: Select target" % who.name
+            who,
+            Global.TARGET_Ranged,
+            "%s: Select target" % who.name,
         )
         if not target:
             return 0
@@ -638,7 +636,9 @@ class Umbra:
 
     def mainQuit(self):
         rc = self.alert(
-            "Quit", "Are you sure you want to quit?", type=Global.ALERT_YESNO
+            "Quit",
+            "Are you sure you want to quit?",
+            type=Global.ALERT_YESNO,
         )
         if rc and self.game.saveGame():
             self.quit()
@@ -1000,7 +1000,7 @@ class Umbra:
         DY = Global.DY
         dist = min(VIEWDIST, rng)
         for lr in range(-dist, dist + 1):
-            for fb in range(0, dist + 1):
+            for fb in range(dist + 1):
                 x = VIEWDIST + fb * DX[facing] - lr * DY[facing]
                 y = VIEWDIST + lr * DX[facing] + fb * DY[facing]
                 here = []

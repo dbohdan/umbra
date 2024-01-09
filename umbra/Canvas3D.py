@@ -1,6 +1,6 @@
-from . import Global
-
 from tkinter import *
+
+from . import Global
 
 DEBUG3D = 0
 
@@ -101,13 +101,26 @@ class Canvas3D(Canvas):
         if len(pts) == 8:
             # I know that all 4-point polys in drawBlock3D are rectangular...
             self.create_rectangle(
-                pts[0], pts[1], pts[4], pts[5], fill=fill, outline=outline
+                pts[0],
+                pts[1],
+                pts[4],
+                pts[5],
+                fill=fill,
+                outline=outline,
             )
         else:
             self.create_polygon(pts, fill=fill, outline=outline, stipple=stipple)
 
     def drawPanel3D(
-        self, side, nx, ny, fill, outline, altitude=-1, height=2, stipple=None
+        self,
+        side,
+        nx,
+        ny,
+        fill,
+        outline,
+        altitude=-1,
+        height=2,
+        stipple=None,
     ):
         # don't draw things that should be behind you!
         if side == Global.Side_Near and nx == ny == 0:
@@ -249,7 +262,13 @@ class Canvas3D(Canvas):
         if DEBUG3D:
             print("drawOval3D %s" % pts)
         self.create_oval(
-            pts[0], pts[1], pts[2], pts[3], fill=fill, outline=outline, stipple=stipple
+            pts[0],
+            pts[1],
+            pts[2],
+            pts[3],
+            fill=fill,
+            outline=outline,
+            stipple=stipple,
         )
 
     def drawPolygon3D(self, pts, fill, outline, stipple=None):
@@ -263,7 +282,13 @@ class Canvas3D(Canvas):
         if DEBUG3D:
             print("drawRectangle3D %s" % pts)
         self.create_rectangle(
-            pts[0], pts[1], pts[4], pts[5], fill=fill, outline=outline, stipple=stipple
+            pts[0],
+            pts[1],
+            pts[4],
+            pts[5],
+            fill=fill,
+            outline=outline,
+            stipple=stipple,
         )
 
     def drawText3D(self, x, y, z, text, fill):
@@ -272,5 +297,10 @@ class Canvas3D(Canvas):
             print("drawText3D %s '%s'" % (pts, text))
         fontsize = self.font3dsize // z
         self.create_text(
-            pts[0], pts[1], text=text, font=("Times", fontsize), fill=fill, anchor=S
+            pts[0],
+            pts[1],
+            text=text,
+            font=("Times", fontsize),
+            fill=fill,
+            anchor=S,
         )

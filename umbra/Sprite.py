@@ -1,5 +1,6 @@
+import os
+
 from . import Global, util
-import os, string
 
 SPRITES = {}
 
@@ -71,7 +72,7 @@ class Sprite:
                 else:
                     return 0
             else:
-                raise IOError("%s: Unknown side condition '%s'" % (self.name, s))
+                raise OSError("%s: Unknown side condition '%s'" % (self.name, s))
         return 1
 
     def __parseCommands(self, lines):
@@ -112,7 +113,7 @@ class Sprite:
                     try:
                         panel = Global.SIDE_CHARS.index(panel)
                     except ValueError:
-                        raise IOError("%s: Unknown panel '%s'" % (self.name, panel))
+                        raise OSError("%s: Unknown panel '%s'" % (self.name, panel))
                 command[4] = panel
                 if len(command) > 5:
                     command[5] = self.__parseOpts(command[5])
@@ -262,7 +263,11 @@ class Sprite:
                 points = command[3]
                 if ny <= Global.TEXT3D_DIST:
                     canvas.drawText3D(
-                        nx * 2, points[1], ny * 2 + 2, thing.name, fill=fill
+                        nx * 2,
+                        points[1],
+                        ny * 2 + 2,
+                        thing.name,
+                        fill=fill,
                     )
             elif cmd == CMD_EMIT:
                 for k in range(Global.NDIRS):
@@ -285,7 +290,7 @@ def getSprite(name):
         spr = Sprite(name)
         SPRITES[name] = spr
         return spr
-    except IOError as detail:
+    except OSError as detail:
         print("Unable to read model %s: %s" % (name, detail))
         SPRITES[name] = None
         return None

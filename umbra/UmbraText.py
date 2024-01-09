@@ -1,6 +1,4 @@
-from . import Entity, Level, Terrain, Umbra
-from . import Global, util
-import string, types
+from . import Global, Umbra, util
 
 
 class UmbraText(Umbra.Umbra):
@@ -34,7 +32,7 @@ class UmbraText(Umbra.Umbra):
 
     def gameOver(self):
         print(
-            """
+            r"""
 .-----------.
 |.-----------.
 ||           |
@@ -44,7 +42,7 @@ class UmbraText(Umbra.Umbra):
 ||           |
 ||           |
 \|           |
- \___________/"""
+ \___________/""",
         )
         self.quit()
 
@@ -123,7 +121,15 @@ class UmbraText(Umbra.Umbra):
                 for x in range(left, right + 1):
                     grid = map[x][y]
                     text = self.__showGrid(
-                        text, level, x0, y0, x, y, grid, desc, mapdesc
+                        text,
+                        level,
+                        x0,
+                        y0,
+                        x,
+                        y,
+                        grid,
+                        desc,
+                        mapdesc,
                     )
                 text = "%s\n" % text
         elif facing == Global.East:
@@ -131,7 +137,15 @@ class UmbraText(Umbra.Umbra):
                 for y in range(left, right + 1):
                     grid = map[x][y]
                     text = self.__showGrid(
-                        text, level, x0, y0, x, y, grid, desc, mapdesc
+                        text,
+                        level,
+                        x0,
+                        y0,
+                        x,
+                        y,
+                        grid,
+                        desc,
+                        mapdesc,
                     )
                 text = "%s\n" % text
         elif facing == Global.South:
@@ -139,7 +153,15 @@ class UmbraText(Umbra.Umbra):
                 for x in range(right, left - 1, -1):
                     grid = map[x][y]
                     text = self.__showGrid(
-                        text, level, x0, y0, x, y, grid, desc, mapdesc
+                        text,
+                        level,
+                        x0,
+                        y0,
+                        x,
+                        y,
+                        grid,
+                        desc,
+                        mapdesc,
                     )
                 text = "%s\n" % text
         else:  # facing == Global.West:
@@ -147,7 +169,15 @@ class UmbraText(Umbra.Umbra):
                 for y in range(right, left - 1, -1):
                     grid = map[x][y]
                     text = self.__showGrid(
-                        text, level, x0, y0, x, y, grid, desc, mapdesc
+                        text,
+                        level,
+                        x0,
+                        y0,
+                        x,
+                        y,
+                        grid,
+                        desc,
+                        mapdesc,
                     )
                 text = "%s\n" % text
         print(text)

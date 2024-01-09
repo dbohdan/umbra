@@ -1,6 +1,6 @@
-from . import Item, Script, Sprite, Thing
-from . import Global, util
 import os
+
+from . import Global, Script, Thing
 
 DEBUG = 0
 
@@ -94,7 +94,8 @@ class Door(Thing.Thing):
         if DEBUG:
             print(self)
         door = Global.umbra.game.getLevel(self.linkedTo[2]).getDoor(
-            self.linkedTo[0], self.linkedTo[1]
+            self.linkedTo[0],
+            self.linkedTo[1],
         )
         if DEBUG:
             print("    linkedTo door=%s" % door)

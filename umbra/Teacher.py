@@ -1,6 +1,6 @@
-from . import Entity, Skill
-from . import Global, util
-import copy, string, random
+import random
+
+from . import Entity, Global, Skill, util
 
 NSKILLS = 2
 BASE_COST = 10
@@ -21,7 +21,8 @@ class Teacher(Entity.Entity):
         u = Global.umbra
         if who.skillPoints <= 0:
             opt = u.showText(
-                "%s says:" % self.name, "Sorry, but you're not ready to be trained."
+                "%s says:" % self.name,
+                "Sorry, but you're not ready to be trained.",
             )
             return 1
         skillnames = list(self.teaching.keys())
@@ -47,7 +48,8 @@ class Teacher(Entity.Entity):
             newlevel = oldlevel + 1
         if newlevel > self.teaching[sk]:
             opt = u.showText(
-                "%s says:" % self.name, "Sorry, but you know more about that than I do."
+                "%s says:" % self.name,
+                "Sorry, but you know more about that than I do.",
             )
             return 1
         yesno = u.alert(

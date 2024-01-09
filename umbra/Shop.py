@@ -1,6 +1,6 @@
-from . import Ammo, Equip, Loot, Melee, Ranged, Defense, Script
-from . import Global, util
-import copy, string
+import copy
+
+from . import Ammo, Defense, Equip, Global, Loot, Melee, Ranged, Script
 
 # Global.SHOP_* := [ (item template, cost, quantityDice), ]
 CATALOG = {}
@@ -313,7 +313,10 @@ def fillShopTypes():
     addToShop(item, 500, "1 6 -1")
 
     item = Equip.Equip(
-        ITEM_digital_watch, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop
+        ITEM_digital_watch,
+        "sword",
+        Equip.T_Accessory,
+        Global.SHOP_Pawn_Shop,
     )
     item.readyEffect = Script.Script(
         (Script.T, Script.STAT, Global.Mind, "0 0 1"),
@@ -324,7 +327,10 @@ def fillShopTypes():
     addToShop(item, 30, "1 6 0")
 
     item = Equip.Equip(
-        ITEM_mirrorshades, "sword", Equip.T_Accessory, Global.SHOP_Pawn_Shop
+        ITEM_mirrorshades,
+        "sword",
+        Equip.T_Accessory,
+        Global.SHOP_Pawn_Shop,
     )
     item.readyEffect = Script.Script(
         (Script.T, Script.STAT, Global.Presence, "0 0 2"),

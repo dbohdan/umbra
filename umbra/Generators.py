@@ -1,6 +1,4 @@
-from . import Bestiary, MapGenerator, Terrain, Vehicle
-from . import Temple
-from . import Global, util
+from . import Bestiary, Global, MapGenerator, Temple, Terrain, Vehicle, util
 
 SIZE = Global.LEVELSIZE
 
@@ -225,11 +223,17 @@ class DesertGen(MapGenerator.MapGenerator):
             temple.makeBunker(sector, coord)
             temple.generate(sector, coord)
             sector.makeEncounters(
-                level, util.d(3, 10), DESERT_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(3, 10),
+                DESERT_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
         else:
             sector.makeEncounters(
-                level, util.d(5, 10), DESERT_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(5, 10),
+                DESERT_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
 
 
@@ -252,11 +256,17 @@ class ForestGen(MapGenerator.MapGenerator):
             coord = temple.findTemple(sector, Tree)
             temple.generate(sector, coord)
             sector.makeEncounters(
-                level, util.d(3, 10), FOREST_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(3, 10),
+                FOREST_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
         else:
             sector.makeEncounters(
-                level, util.d(5, 10), FOREST_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(5, 10),
+                FOREST_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
 
 
@@ -280,11 +290,17 @@ class HillsGen(MapGenerator.MapGenerator):
             temple.makeBunker(sector, coord)
             temple.generate(sector, coord)
             sector.makeEncounters(
-                level, util.d(3, 10), HILLS_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(3, 10),
+                HILLS_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
         else:
             sector.makeEncounters(
-                level, util.d(5, 10), HILLS_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(5, 10),
+                HILLS_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
 
 
@@ -307,11 +323,17 @@ class MarshGen(MapGenerator.MapGenerator):
             temple.makeBunker(sector, coord)
             temple.generate(sector, coord)
             sector.makeEncounters(
-                level, util.d(3, 10), MARSH_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(3, 10),
+                MARSH_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
         else:
             sector.makeEncounters(
-                level, util.d(5, 10), MARSH_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(5, 10),
+                MARSH_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
 
 
@@ -337,18 +359,24 @@ class MountainsGen(MapGenerator.MapGenerator):
         if Global.START_DEBUG:
             print(
                 "hack=%d, mountains %d,%d, START_HACK=%s"
-                % (hack, sector.wx, sector.wy, Global.START_HACK)
+                % (hack, sector.wx, sector.wy, Global.START_HACK),
             )
         if hack or Global.START_DEBUG or util.d(1, 4) == 1:
             temple = Temple.Temple()
             coord = temple.findTemple(sector, Mountain)
             temple.generate(sector, coord)
             sector.makeEncounters(
-                level, util.d(3, 10), MOUNTAINS_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(3, 10),
+                MOUNTAINS_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
         else:
             sector.makeEncounters(
-                level, util.d(5, 10), MOUNTAINS_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+                level,
+                util.d(5, 10),
+                MOUNTAINS_ENCOUNTERS,
+                Terrain.ENC_TERRAIN_OUTDOORS,
             )
 
 
@@ -381,7 +409,10 @@ class PlainsGen(MapGenerator.MapGenerator):
                     level.setTerrain(x, y1 - 1, Sand)
         # now place critters and monsters
         sector.makeEncounters(
-            level, util.d(5, 10), PLAINS_ENCOUNTERS, Terrain.ENC_TERRAIN_OUTDOORS
+            level,
+            util.d(5, 10),
+            PLAINS_ENCOUNTERS,
+            Terrain.ENC_TERRAIN_OUTDOORS,
         )
 
 
