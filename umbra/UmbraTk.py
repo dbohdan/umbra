@@ -27,7 +27,7 @@ class UmbraTk(Umbra.Umbra):
             default=DEFAULT_SIZE,
             metavar="<pixels>",
             type=int,
-            help="set the view window size (default: %(default)d)",
+            help="the view window size (default: %(default)d)",
         )
 
         args = parser.parse_args()

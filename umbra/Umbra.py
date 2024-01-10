@@ -111,7 +111,7 @@ def cli():
         default=8,
         metavar="<squares>",
         type=int,
-        help="set the view distance in grid squares (default: %(default)d)",
+        help="the view distance in grid squares (default: %(default)d)",
     )
 
     parser.add_argument(
@@ -148,7 +148,7 @@ def cli():
         "-visible",
         "--visible",
         action="store_true",
-        help="enable visibility calculation",
+        help="hide map squares based on a visibility calculation",
     )
 
     parser.add_argument(
