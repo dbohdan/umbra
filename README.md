@@ -7,18 +7,41 @@ This is an unofficial Python 3 port of the Python 2.1 source code.
 
 ## Screenshots
 
-![A screenshot of _Umbra_ showing the starting town.](docs/screenshot-1.png)
+![A screenshot showing the starting town.](docs/screenshot-1.png)
 
-![A screenshot of _Umbra_ showing an outdoor area.](docs/screenshot-2.png)
+![A screenshot showing an outdoor area.](docs/screenshot-2.png)
 
 ## Description
 
 From the
-[game's page](https://mdhughes.tech/software/umbra/):
+[game's webpage](https://mdhughes.tech/software/umbra/):
 
 > The world is randomly-generated for new play every time, but there is an eventual goal and storyline. It was heavily influenced by roguelike games, Alternate Reality, console RPGs, and the works of H.P. Lovecraft and Clark Ashton Smith.
 
 > Umbra is set after a Lovecraftian apocalypse – the ancient god Mogth has risen from ages of deathlike slumber, conquered the world, thrown down civilization, and now man huddles in primitive communities, scattered and dying out. You play a band of heroes who will attempt to free humanity!
+
+## Development status
+
+The game is unfinished.
+There is no way to complete it and no story progression.
+However,
+the game world is open to explore.
+You can walk around towns and in the wilderness,
+which has what we would now call "biomes",
+enter dungeons,
+engage in combat,
+have your path blocked by a rat,
+buy and sell items,
+learn skills,
+and level up.
+
+Obstacle placement is far from optimal.
+Dense map sectors can be frustrating to get through.
+Felling trees helps.
+You can also bypass it to an extent by walking along the sector border,
+which is always clear.
+
+The original developer log is preserved in [`docs/history.txt`](docs/history.txt).
 
 ## System requirements
 
@@ -29,11 +52,14 @@ Unusually for a game,
 _Umbra_ can run either with first-person [Tkinter](https://docs.python.org/3/library/tkinter.html) graphics
 or in text mode.
 
-This port has been lightly tested on
+This port has been tested on
+
+- Ubuntu 22.04
+
+and lightly on
 
 - Debian 12
 - NetBSD 9.3
-- Ubuntu 22.04
 - Windows 10
 
 ## Installation
@@ -45,7 +71,7 @@ Run `umbra.sh --text` or `umbra.cmd --text` respectively for text mode.
 
 ## Documentation
 
-For the original documentation see [`docs/README.html`](docs/README.html).
+For the original documentation, see [`docs/README.html`](docs/README.html).
 
 ## License
 
