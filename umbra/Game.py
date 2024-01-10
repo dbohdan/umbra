@@ -76,6 +76,9 @@ class Game:
         self.__astronomy()
         self.altarsDestroyed = 0
         self.vehicle = None
+        self.initViewArray()
+
+    def initViewArray(self):
         self.view = util.makeArray((Global.VIEWSIZE, Global.VIEWSIZE, 4))
 
     def __str__(self):
@@ -1011,6 +1014,8 @@ def loadGame(dirname):
         party_levelnum = data[2]
         party_x = data[3]
         party_y = data[4]
+
+        game.initViewArray()
 
         if Global.TIMING:
             t2 = time.clock()
