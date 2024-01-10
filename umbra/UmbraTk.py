@@ -928,7 +928,7 @@ class UmbraTk(Umbra.Umbra):
         textlen = len(text)
         if oldtext == text:
             self.status[2]["text"] = "%s (x2)" % text
-        elif len(oldtext) - textlen >= 5 and util.startsWith(oldtext, "%s (x" % text):
+        elif len(oldtext) - textlen >= 5 and oldtext.startswith("%s (x" % text):
             n = int(oldtext[textlen + 3 : -1]) + 1
             self.status[2]["text"] = "%s (x%d)" % (text, n)
         else:

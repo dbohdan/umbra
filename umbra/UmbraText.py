@@ -182,8 +182,8 @@ class UmbraText(Umbra.Umbra):
                 text = "%s\n" % text
         print(text)
 
-        keys = ["%s=%s" % (key, desc[key]) for key in util.sort(list(desc.keys()))] + [
-            "%s=%s" % (key, mapdesc[key]) for key in util.sort(list(mapdesc.keys()))
+        keys = ["%s=%s" % (key, desc[key]) for key in sorted(desc.keys())] + [
+            "%s=%s" % (key, mapdesc[key]) for key in sorted(mapdesc.keys())
         ]
 
         util.print2cols(keys)
@@ -209,7 +209,7 @@ class UmbraText(Umbra.Umbra):
                     name = th.name.replace("\n", " ")
                     value = "%s%s%s" % (
                         value,
-                        util.test(len(value) == 0, "", "; "),
+                        "; " if value else "",
                         name,
                     )
                 desc[key] = value

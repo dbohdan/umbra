@@ -49,7 +49,7 @@ class Level:
                             for item in self.getStuff(x, y):
                                 if isinstance(item, Entity.Entity):
                                     char = "@" + char[0]
-                                elif util.endsWith(item.sprite, "sign"):
+                                elif item.sprite.endswith("sign"):
                                     char = "!" + char[0]
                 text = "%s%s" % (text, char)
             text = "%s\n" % text

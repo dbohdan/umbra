@@ -304,7 +304,7 @@ class Entity(Thing.Thing):
                     self.level,
                     Global.STAT_NAMES[st],
                     self.skillPoints,
-                    util.test(self.skillPoints > 1, "s", ""),
+                    "s" if self.skillPoints > 1 else "",
                 ),
             )
 
@@ -553,7 +553,7 @@ class Entity(Thing.Thing):
 
     def isUndead(self):
         u = Bestiary.getSpeciesData(self.species, "undead")
-        return util.test(u)
+        return bool(u)
 
     def listEquip(self):
         options = [
@@ -703,7 +703,7 @@ class Entity(Thing.Thing):
         return util.taskRoll(score)
 
     def thingsToDoWhenYoureDeadIn(self, level):  # probably not Denver.
-        if util.endsWith(self.autopsy, "goes mad!"):
+        if self.autopsy.endswith("goes mad!"):
             for i in range(Global.NPRIMES):
                 self.stat[i] = util.d(1, 10) + 10
             for i in range(Global.NPRIMES, Global.NSTATS):

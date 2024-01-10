@@ -104,12 +104,12 @@ class Script:
                 if user:
                     user.message(
                         "You have no effect%s!"
-                        % util.test(target, " on %s" % targetname, ""),
+                        % (" on %s" % targetname if target else ""),
                     )
                 if target:
                     target.message(
                         "You are hit%s, but suffer no effect!"
-                        % util.test(user, " by %s" % username, ""),
+                        % (" by %s" % username if user else ""),
                     )
                 return 0
             if target.player:
@@ -123,11 +123,11 @@ class Script:
             if user:
                 user.message(
                     "You have no effect on %s!"
-                    % util.test(target, " on %s" % targetname, ""),
+                    % (" on %s" % targetname if target else ""),
                 )
             if target:
                 target.message(
-                    "%s has no effect on you!" % util.test(user, "%s" % username, "It"),
+                    "%s has no effect on you!" % (username if user else "It"),
                 )
             return 0
         if stat < Global.NPRIMES:
@@ -147,12 +147,12 @@ class Script:
         if user:
             user.message(
                 "You %s %s%s!"
-                % (doText, statname, util.test(target, " to %s" % targetname, "")),
+                % (doText, statname, (" to %s" % targetname if target else "")),
             )
         if target:
             target.message(
                 "You %s %s%s!"
-                % (takeText, statname, util.test(user, " from %s" % username, "")),
+                % (takeText, statname, (" from %s" % username if user else "")),
             )
         # all done, see if they're alive.
         if user:

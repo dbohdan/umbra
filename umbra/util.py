@@ -3,6 +3,7 @@ import copy
 import os
 import random
 import re
+import textwrap
 import types
 
 VOWELS = ("a", "e", "i", "o", "u")
@@ -111,23 +112,16 @@ def colorTransform(color, scale=None, delta=None):
 
 
 def commaList(items, none="None", text=""):
-    if not items:
-        return "%s%s" % (text, none)
-    comma = ""
-    for i in items:
-        if i:
-            text = "%s%s%s" % (text, comma, i)
-            comma = ", "
-    if not comma:
-        text = "%s%s" % (text, none)
-    return text
+    filtered = [str(item) for item in items if item]
+
+    if not filtered:
+        return f"{text}{none}"
+
+    return f"{text}{', '.join(filtered)}"
 
 
 def cumulative(n):
-    t = 0
-    for i in range(1, n + 1):
-        t += i
-    return t
+    return (n + 1) * n // 2
 
 
 def d(ndice, sides):
@@ -179,15 +173,6 @@ def dx():
     return die
 
 
-def endsWith(body, finger):
-    if body is None or finger is None:
-        return 0
-    fingerLen = len(finger)
-    if fingerLen == 0 or fingerLen > len(body):
-        return 0
-    return body[-fingerLen:] == finger
-
-
 def expandArray(a, n, value=None):
     assertInt(n, min=0)
     assertList(a)
@@ -200,49 +185,8 @@ def expandArray(a, n, value=None):
         )
 
 
-def foldLines(str, maxlen):
-    text = ""
-    lines = str.split("\n")
-    for line in lines:
-        s = __foldLine(line, maxlen)
-        if len(text) == 0:
-            text = s
-        else:
-            text = "%s\n%s" % (text, s)
-    return text
-
-
-def __foldLine(str, maxlen):
-    #    print "__foldLine '%s', %d" % (str, maxlen)
-    text = ""
-    line = ""
-    words = str.split(" ")
-    for word in words:
-        #        print "text='%s', line='%s', word='%s'" % (text, line, word)
-        if len(line) + (len(line) > 0) + len(word) > maxlen:
-            if len(text) == 0:
-                text = line
-            else:
-                text = "%s\n%s" % (text, line)
-            line = "%s" % word
-        else:
-            if len(line) == 0:
-                line = word
-            else:
-                line = "%s %s" % (line, word)
-        while len(line) > maxlen:
-            if len(text) == 0:
-                text = line[:maxlen]
-            else:
-                text = "%s\n%s" % (text, line[:maxlen])
-            line = line[maxlen:]
-    if len(line) > 0:
-        if len(text) == 0:
-            text = line
-        else:
-            text = "%s\n%s" % (text, line)
-    #    print "return '%s'" % (text)
-    return text
+def foldLines(s, maxlen):
+    return "\n".join(textwrap.wrap(s, maxlen))
 
 
 def indexOf(needle, haystack):
@@ -311,11 +255,6 @@ def makeArray(dims, value=None):
         sub = dims[1:]
         a = [makeArray(sub, value) for i in range(n)]
     return a
-
-
-def merge(foo, bar):
-    foo.extend(bar)
-    return foo
 
 
 def minmax(n, low, high):
@@ -443,42 +382,11 @@ def sign(i):
     return -1
 
 
-def sort(sequence):
-    if sequence is None:
-        return sequence
-    tmp = list(sequence)
-    tmp.sort()
-    return tmp
-
-
-def startsWith(body, finger):
-    fingerLen = len(finger)
-    if fingerLen == 0 or fingerLen > len(body):
-        return 0
-    return body[:fingerLen] == finger
-
-
 def taskRoll(score):
     """Return the result quality of a task roll against 'score'"""
     roll = dx() + dx()
     result = roll + score - 20
     return result
-
-
-def test(test, true=1, false=0):
-    if test:
-        return true
-    return false
-
-
-def testeval(test, true=1, false=0):
-    if test:
-        rc = true
-    else:
-        rc = false
-    if rc == None:
-        return None
-    return eval(rc)
 
 
 def testNextXP():

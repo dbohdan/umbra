@@ -1,4 +1,4 @@
-from . import Global, Item, Loot, util
+from . import Global, Item, Loot
 
 
 class Ammo(Loot.Loot):
@@ -18,4 +18,4 @@ class Ammo(Loot.Loot):
         )
 
     def fitsIn(self, gun):
-        return util.startsWith(gun.name, self.ammoType)
+        return gun.name.startswith(self.ammoType)
