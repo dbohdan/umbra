@@ -125,7 +125,7 @@ def cli():
         "-timing",
         "--timing",
         action="store_true",
-        help="enable timing debug mode",
+        help="enable timing debug output",
     )
 
     parser.add_argument(
@@ -152,12 +152,12 @@ def cli():
     )
 
     parser.add_argument(
-        "-nodebug",
-        "--no-debug",
-        action="store_false",
+        "-debug",
+        "--debug",
+        action="store_true",
         default=Global.DEBUG,
         dest="debug",
-        help="disable debug mode",
+        help="enable debug output",
     )
 
     return parser
