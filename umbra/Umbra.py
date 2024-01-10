@@ -108,7 +108,7 @@ def cli():
     parser.add_argument(
         "-viewdist",
         "--view-dist",
-        default=8,
+        default=Global.VIEWDIST,
         metavar="<squares>",
         type=int,
         help="the view distance in grid squares (default: %(default)d)",

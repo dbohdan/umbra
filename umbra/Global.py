@@ -297,7 +297,7 @@ def setViewDist(dist):
     VIEWSIZE = dist * 2 + 1
 
 
-setViewDist(8)
+setViewDist(16)
 
 
 def testFacingLoop(facing):
