@@ -5,7 +5,7 @@ log_dir=logs
 python="${PYTHON:-python3}"
 
 if ! command -v "$python" > /dev/null; then
-    printf 'Python not found (tried "%s")\n' "$python" > /dev/stderr
+    printf 'Python not found (tried "%s")\n' "$python" >&2
     exit 1
 fi
 
